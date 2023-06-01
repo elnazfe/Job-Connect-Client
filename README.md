@@ -1,70 +1,242 @@
-# Getting Started with Create React App
+# Job-Tracker-Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Name
 
-## Available Scripts
+Job Connect
 
-In the project directory, you can run:
+# Quick Compo
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Description
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+"JobConnect" is an app to track job applications for job seekers to organize and track all applications in one place, customize profiles, follow-up the process, receive reminders and notifications, manage documents and supercharge your career.
 
-### `npm test`
+## User Stories
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-  **404:** As a user I get to see a 404 page with a feedback message if I try to reach a page that does not exist so that I know it's my fault.
+-  **Signup:** As an anonymous user I can sign up on the platform so that I can start creating and managing my job applications.
+-  **Login:** As a user I can login to the platform so that I can access my profile and start creating and managing my job applications.
+-  **Logout:** As a logged in user I can logout from the platform so no one else can use it.
+-  **Profile Page**: As a logged in user I can visit my profile page so that I can access the edit page and see the dashboard I have created.
+-  **Dashboard:** As a logged in user I can access my dashboard, where I can track my progress in job seeking.
+-  **Edit Job:** As a logged in user I can see the job details and edit it.
+- **Notes:** As a logged in user I can access the notes section, where I can post deadline, interview tips or any material I need for the job etc.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Backlog
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Client / Frontend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## React Router Routes (React App)
 
-## Learn More
+| Path                         | Component            | Permissions                | Behavior                                            |
+| ---------------------------- | -------------------- | -------------------------- | --------------------------------------------------|
+| `/login`                     | LoginPage            | anon only `<AnonRoute>`    | Login form, navigates to home page after login.    |
+| `/signup`                    | SignupPage           | anon only  `<AnonRoute>`   | Signup form, navigates to home page after signup. |
+| `/`                          | HomePage             | public `<Route>`           | Home page.                                         |
+| `/user-profile`              | ProfilePage          | user only `<PrivateRoute>` | Job seeker profile for the current user.             |
+| `/user-profile/edit`         | EditProfilePage      | user only `<PrivateRoute>` | Edit user profile form.                           |
+| `/dashboard/`                | DashboardPage        | user only `<PrivateRoute>` | Dashboard Page.                               |
+| `/jobs`                      | JobsPage             |  public `<Route>`          | Jobs list.                                         |
+| `/jobs/:jobId`               | JobDetailPage        |  public `<Route>`          | Job details.  |
+| `/dashboard/addjob/`         | DashboardPage         | user only `<PrivateRoute>` | Adding a job to your bookmarks section.          |
+| `/dashboard/removejob`       | DashboardPage         | user only `<PrivateRoute>` | Removing a job from your bookmarks section       |
+| `/applied/add`               | AppliedJobsPage      | user only `<PrivateRoute>` | Applied Jobs Page                                 |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Components
 
-### Analyzing the Bundle Size
+Pages:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- LoginPage
 
-### Making a Progressive Web App
+- SignupPage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- HomePage
 
-### Advanced Configuration
+- DashboardPage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- ProfilePage
 
-### Deployment
+- EditProfilePage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- JobsPage
 
-### `npm run build` fails to minify
+- JobDetailPage   
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+  
+
+Components:
+- Navbar
+- Footer
+
+
+
+
+## Services
+
+- **Auth Service**
+
+  - `authService` :
+    - `.login(user)`
+    - `.signup(user)`
+    - `.logout()`
+    - `.validate()`
+
+- **User Service**
+
+  - `userService` :
+    - `.updateCurrentUser(id, userData)`
+    - `.getCurrentUser()`
+
+- **Job Service**
+
+  - `jobService` :
+    - `.addJob(jobData)`
+    - `.editJob(id)`
+    - `.deleteJob(id)`
+<br>
+
+
+# Server / Backend
+
+
+## Models
+
+**User model**
+
+```javascript
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    userType: {
+    type: String,
+    required: true,
+    enum: [jobseeker, recruiter]
+    },
+    profile: {
+    img: String,
+    firstName: String,
+    lastName: String,
+    address : {
+    	street: String,
+    	city: String,
+    	country, String,
+   	 },
+target: String,
+summary: String,
+    },
+    bookmark:[
+      {
+        type: Schema.Types.ObjectId,
+        ref:'Job'
+      }],
+    notes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Note'
+        }
+    ]
+
+  },
+);
+```
+
+
+**Dashboard model**
+
+```javascript
+ {
+   status: [{ type: Schema.Types.ObjectId, ref:'Status' }],
+   user: [ { type: Schema.Types.ObjectId, ref:'User' } ],
+   bookmarks: [],
+   applications: []
+   notes: []
+ }
+```
+**Job model**
+```javascript
+ {
+   title: String,
+   companyName: String,
+   jobURL: String,
+   description: String,
+   status: String,
+   user: [ { type: Schema.Types.ObjectId, ref:'User' } ],
+   notes: String
+ }
+```
+
+
+
+
+<br>
+
+
+## API Endpoints (backend routes)
+
+| HTTP Method | URL                    | Request Body                 | Success status | Error Status | Description                                                  |
+| ----------- | ---------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/auth/profile    `    | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
+| POST        | `/auth/signup`         | {email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| UPDATE      | `/user-profile/edit`.  |
+| POST        | `/auth/login`          | {email, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
+| POST        | `/auth/logout`         |                              | 204            | 400          | Logs out the user                                            |
+| GET         | `/api/dashboard`     |                              |                | 400          | Show the whole dahsboard                                        |
+| GET         | `/api/profile` |                              |                |              | User Profile          
+| POST        | `/api/profile/edit`             |       | 201            | 400          | Edit User Profile                                             |
+| GET         | `/api/jobs/addjob` |                              |                |              | Add a new job          
+| POST        | `/api/jobs/editjob/:id`             |       | 201            | 400          | Edit job Detail            
+| DELETE      | `/api/jobs/removejob/:id` |                              | 201            | 400          | remove job                                        
+
+
+<br>
+
+## API's
+
+Google Calendar API
+Linkedin API - Sign up with Linkedin, Apply with Linkedin
+GitHub API - Sign up with GitHub
+
+<br>
+
+## Packages
+
+<br>
+
+
+### Git
+
+The url to your repository and to your deployed project
+
+[Client repository Link](https://github.com/elnazfe/job-connect-client)
+
+[Server repository Link](https://github.com/elnazfe/job-connect-server)
+
+### Slides
+
+
+### Contributors
+
+Elnaz Farrokhi - <elnazfe> - <linkedin-profile-link>
+
+Ana Rak - <ana-rak> - <linkedin-profile-link>
