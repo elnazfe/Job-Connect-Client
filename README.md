@@ -201,10 +201,11 @@ summary: String,
 | UPDATE      | `/user-profile/edit`.  |
 | POST        | `/auth/login`          | {email, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
 | POST        | `/auth/logout`         |                              | 204            | 400          | Logs out the user                                            |
-| GET         | `/api/dashboard`     |                              |                | 400          | Show the whole dahsboard                                        |
+
 | GET         | `/api/profile` |                              |                |              | User Profile          
 | POST        | `/api/profile/edit`             |       | 201            | 400          | Edit User Profile                                             |
-| GET         | `/api/jobs/addjob` |                              |                |              | Add a new job          
+| GET         | `/api/jobs`     |      |      | 400          | Show the whole dahsboard                                        |
+| POST         | `/api/jobs/addjob` |                              |                |              | Add a new job          
 | POST        | `/api/jobs/editjob/:id`             |       | 201            | 400          | Edit job Detail            
 | DELETE      | `/api/jobs/removejob/:id` |                              | 201            | 400          | remove job                                        
 

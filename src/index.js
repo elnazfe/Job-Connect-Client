@@ -8,12 +8,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { AuthProviderWrapper } from "./Context/auth.context";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <AuthProviderWrapper>
+        <App />
+      </AuthProviderWrapper>
     </Router>
   </React.StrictMode>
 );
