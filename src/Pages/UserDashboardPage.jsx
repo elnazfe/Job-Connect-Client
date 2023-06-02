@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 const API_URL = "http://localhost:5005/";
 
 function UserDashboardPage() {
-    const [user, setUser] = useState(null);
+    const [users, setUser] = useState(null);
     const [jobseeker, setJobseeker] = useState(false);
     const [recruiter, setRecruiter] = useState(false);
     const { id } = useParams();
@@ -21,7 +21,7 @@ function UserDashboardPage() {
           setUser(response.data);
           console.log(response.data)
 
-          if (response.data.userType === 'Jobseeker') {
+          if (response.data.userType === 'JobSeeker') {
             setJobseeker(true);
           } else {
             setRecruiter(true);
@@ -38,13 +38,13 @@ function UserDashboardPage() {
 
     return (
       <div>
-      {jobseeker && (
-        <>
+     {/*  {jobseeker && (
+        <> */}
             <h1>
-              Hello, {user.firstName} {user.lastName}
+              Hello, {users.email} {/* {user.firsttName} */}
             </h1>
 
-            <Link to={`/profile/${user._id}`}>
+            {/* <Link to={`/profile/${user._id}`}>
               Profile
             </Link>
 
@@ -65,7 +65,7 @@ function UserDashboardPage() {
             </h2>
 
         </>
-      )}
+      )} */}
       </div>
     )}
 

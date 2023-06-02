@@ -39,11 +39,11 @@ function SignUpPage() {
   };
 
   return (
-    <div className="signupBody">
-      <div className="signupPageB">
+    <div>
+      <div>
         <h1>Signup</h1>
-        <form onSubmit={handleSubmit} className="signupForm">
-          <fieldset className="fieldset">
+        <form onSubmit={handleSubmit}>
+          <fieldset>
             <div>
               <label htmlFor="userType">User Type*</label>
             </div>
@@ -51,7 +51,6 @@ function SignUpPage() {
             <div>
               <input
                 type="radio"
-                className="css-authinput"
                 label="JobSeeker"
                 value="JobSeeker"
                 name="userType"
@@ -61,7 +60,6 @@ function SignUpPage() {
 
               <input
                 type="radio"
-                className="css-authinput"
                 label="Recruiter"
                 value="Recruiter"
                 name="userType"
@@ -75,7 +73,6 @@ function SignUpPage() {
           <input
             type="email"
             placeholder="example@email.com"
-            className="css-authinput"
             value={email}
             name="email"
             onChange={handleEmail}
@@ -84,16 +81,15 @@ function SignUpPage() {
           <label htmlFor="password">Password*</label>
           <input
             type="password"
-            className="css-authinput"
             value={password}
             name="password"
             onChange={handlePassword}
           />
-          <button className="signupBtnSubmit" type="submit">
+          <button type="submit">
             Sign Up
           </button>
-          <p className="loginFormPhraseP">Already have an account?</p>
-          <Link to="/login" className="loginLinkBtn">
+          <p>Already have an account?</p>
+          <Link to="/login">
             Log in here
           </Link>
         </form>

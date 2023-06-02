@@ -22,11 +22,11 @@ function LoginPage() {
       password,
     };
     axios
-      .post(`${API_URL}/login`, body)
+      .post(`${API_URL}/auth/login`, body)
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate('/home');
+        navigate('/dashboard');
       })
       .catch((err) => {
         setErrorMessage(err.response.data.errorMessage);
@@ -34,13 +34,12 @@ function LoginPage() {
   };
 
   return (
-    <div className="loginBody">
-      <div className="loginPageB">
-        <h1 className='loginH1'>Login </h1>
-        <form onSubmit={handleLoginSubmit} className="loginForm">
+    <div>
+      <div>
+        <h1>Login </h1>
+        <form onSubmit={handleLoginSubmit}>
           <label>Email address*</label>
           <input
-            className="css-authinput"
             type="email"
             name="email"
             value={email}
@@ -49,22 +48,21 @@ function LoginPage() {
 
           <label>Password*</label>
           <input
-            className="css-authinput"
             type="password"
             name="password"
             value={password}
             onChange={handlePassword}
           />
 
-          <button className="loginBtnSubmit" type="submit">
+          <button type="submit">
             Log in
           </button>
-          <p className="loginFormPhraseP">Don't have an account yet?</p>
-          <Link to={'/signup'} className="signupLinkBtn">
+          <p>Don't have an account yet?</p>
+          <Link to={'/signup'}>
             Sign Up here
           </Link>
         </form>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
       </div>
     </div>
   );
