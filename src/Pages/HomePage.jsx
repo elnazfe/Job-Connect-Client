@@ -16,13 +16,19 @@ function HomePage() {
         <Link to="/signup">
           Sign Up here
         </Link>
-
+<br/>
         <Link to="/login">
           Log In here
         </Link>
+<br/>
+        <Link to={`/profile/${user._id}`}>
+              Profile
+        </Link>
+
       </div>
       );
   }
 
   export default HomePage;
+
   
