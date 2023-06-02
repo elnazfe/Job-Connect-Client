@@ -16,10 +16,15 @@ function HomePage() {
         <Link to="/signup">
           Sign Up here
         </Link>
-
+<br/>
         <Link to="/login">
           Log In here
         </Link>
+<br/>
+        <Link to={`/profile/:id`}>
+              Profile
+        </Link>
+
       </div>
       );
   }

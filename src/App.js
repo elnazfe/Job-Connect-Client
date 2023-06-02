@@ -8,7 +8,7 @@ import Navbar from "./Components/Navbar";
 import HomePage from "./Pages/HomePage";
 import SignUpPage from "./Pages/SignupPage";
 import LoginPage from "./Pages/LoginPage";
-import UserDashboardPage from "./Pages/UserDashboardPage"
+import UserProfilePage from "./Pages/UserProfilePage"
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={ <HomePage /> } />
         <Route path="/signup" element={<SignUpPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/dashboard" element={<UserDashboardPage/>}/>
+        <Route path="/profile/:id" element={<UserProfilePage/>}/>
       </Routes>
 
     </div>

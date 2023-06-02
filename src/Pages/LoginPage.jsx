@@ -9,9 +9,11 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
+  
   const navigate = useNavigate();
 
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, authenticateUser, user } = useContext(AuthContext);
+  
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
@@ -26,10 +28,10 @@ function LoginPage() {
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate('/dashboard');
+        navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
-        setErrorMessage(err.response.data.errorMessage);
+        setErrorMessage(err.errorMessage);
       });
   };
 

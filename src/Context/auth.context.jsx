@@ -22,7 +22,7 @@ function AuthProviderWrapper(props) {
 
       if (storedToken) {
         const response = await axios.get(
-          `${API_URL}/verify`,
+          `${API_URL}/auth/verify`,
           {
             headers: { Authorization: `Bearer ${storedToken}` },
           }
