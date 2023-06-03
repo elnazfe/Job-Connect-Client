@@ -21,13 +21,12 @@ function HomePage() {
           Log In here
         </Link>
 <br/>
-        <Link to={`/profile/:id`}>
+        {/* <Link to={`/profile/${user._id}`}>
               Profile
-        </Link>
+        </Link> */}
 
       </div>
       );
   }
 
   export default HomePage;
-  

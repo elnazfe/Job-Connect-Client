@@ -20,7 +20,7 @@ function AddJob(props) {
     const requestBody = {title, companyName, jobURL, description, status, notes};
 
     axios
-    .post(`${API_URL}/apijobs`, requestBody)
+    .post(`${API_URL}/api/addjob`, requestBody)
     .then((response) => {
       setTitle("");
       setCompanyName("");
@@ -35,7 +35,7 @@ function AddJob(props) {
 
   return (
     <div>
-      <h3>Add Job</h3>
+      <h3>My Job</h3>
 
       <form>
         <label>Title:</label>
