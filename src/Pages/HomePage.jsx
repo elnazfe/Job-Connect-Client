@@ -12,19 +12,6 @@ function HomePage() {
     return (
       <div>
         <h1>Home Page</h1>
-
-        <Link to="/signup">
-          Sign Up here
-        </Link>
-<br/>
-        <Link to="/login">
-          Log In here
-        </Link>
-<br/>
-        <Link to={`/profile/${user._id}`}>
-              Profile
-        </Link>
-
       </div>
       );
   }
