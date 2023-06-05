@@ -9,6 +9,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
+  
   const navigate = useNavigate();
 
   const { storeToken, authenticateUser, user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ function LoginPage() {
         navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
-        setErrorMessage(err.response.data.errorMessage);
+        setErrorMessage(err.errorMessage);
       });
   };
 
