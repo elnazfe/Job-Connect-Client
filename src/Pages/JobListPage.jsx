@@ -4,6 +4,7 @@ import MovableItem from "../Components/MovableItem";
 import Column from "../Components/Column";
 import { tasks } from "../tasks";
 import { COLUMN_NAMES } from "../constants";
+import { Button } from "@mui/material";
 
 const API_URL = "http://localhost:5005";
 
@@ -70,6 +71,7 @@ function JobListPage() {
       </Column>
       <Column title={AWAITING_INFO} className="column awaiting-review-column">
         {returnItemsForColumn(AWAITING_INFO)}
+        <Button type="submit">remove</Button>
       </Column>
     </div>
   );
