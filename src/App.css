@@ -37,8 +37,6 @@
   }
 }
 
-
-
 .navline {
   width: 80%;
   height: 5px;
@@ -52,13 +50,10 @@
   justify-content: center;
 }
 
-
-
 .container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  
 }
 
 .column {

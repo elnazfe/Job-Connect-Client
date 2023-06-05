@@ -13,8 +13,10 @@ import JobListPage from "./Pages/JobListPage";
 import AddJob from "./Pages/AddJobPage";
 import JobDetailPage from "./Pages/JobDetailPage"
 import EditProfilePage from "./Pages/EditProfilePage"
+import ProfileDetailPage from "./Pages/ProfileDetailPage"
 
 function App() {
+
   return (
     <div className="App">
       <Navbar />
@@ -24,11 +26,11 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/profile/:id" element={<UserProfilePage/>}/>
         <Route path="/profile/:id/edit" element={<EditProfilePage/>}/>
+        <Route path="/profile/:id/detail" element={<ProfileDetailPage/>}/>
         <Route path="/jobs" element={<JobListPage/>}/>
         <Route path="/addjob" element={<AddJob/>}/>
         <Route path="/jobdetail" element={<JobDetailPage/>}/>
       </Routes>
-
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
- 
+
 const API_URL = "http://localhost:5005";
 
 function UserProfilePage() {
@@ -49,65 +49,62 @@ function UserProfilePage() {
       color: theme.palette.text.secondary,
     }));  
 
+    
     return (
       <div>
-        <Box sx={{ width: '100%' }}>
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid xs={3}>
-            {jobseeker && (
-        <> 
-            <h1>
-              Hello, Jobseekr
-            </h1>
-
-            <Link to={`/profile/${user._id}/edit`}>
-              Profile
-            </Link>
-
-            <Link to={`/jobs`}>
-              Dashboard
-            </Link> 
-        </>
-      )}
-
-      {recruiter && (
-        <>
-            <h1>
-              Hello Recruiter
-            </h1>
-
-            <h2>
-              Coming Soon!
-            </h2>
-
-        </>
-      )}
+        {jobseeker && (
+          <>
+        <Box sx={{ width: '80%', display: 'flex', justifyContent: 'center', margin: '5% auto', fontFamily: 'Kanit' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={3}>
+                  <h1>Hello, Jobseeker {user.firstName}</h1>
             </Grid>
-            <Grid xs={3}>
-              <Item>2</Item>
+            <Grid item xs={12} sm={3}>
+              <Item>
+                <img src="/icon.svg" alt="Image" style={{ width: '50%' }} />
+                <br/>
+                <Link to={`/jobs`}>Dashboard</Link>
+              </Item>
             </Grid>
-            <Grid xs={3}>
-              <Item>3</Item>
+            <Grid item xs={12} sm={3}>
+              <Item>
+                <img src="/icon (1).svg" alt="Image" style={{ width: '50%' }} />
+                <br/>
+                <Link to={`/profile/${user._id}/detail`}>Your Profile</Link>
+              </Item>
             </Grid>
-            <Grid xs={3}>
-              <Item>4</Item>
-            </Grid>
-            <Grid xs={3}>
+            <Grid item xs={12} sm={3}>
+            <Item>
+                <img src="/icon (2).svg" alt="Image" style={{ width: '50%' }} />
+                <br/>
+                <Link to={`/profile/${user._id}/edit`}>Edit Your Profile</Link>
+              </Item>
+              </Grid>
+              <Grid item xs={12} sm={3}>
               <Item>5</Item>
             </Grid>
-            <Grid xs={3}>
+            <Grid item xs={12} sm={3}>
               <Item>6</Item>
             </Grid>
-            <Grid xs={3}>
+            <Grid item xs={12} sm={3}>
               <Item>7</Item>
             </Grid>
-            <Grid xs={3}>
+            <Grid item xs={12} sm={3}>
               <Item>8</Item>
             </Grid>
           </Grid>
         </Box>
+        </>
+              )}
+  
+              {recruiter && (
+                <>
+                  <h1>Hello Recruiter</h1>
+                  <h2>Coming Soon!</h2>
+                </>
+              )}
       </div>
-    )}
-
+    );
+  }
 
   export default UserProfilePage;

@@ -67,6 +67,7 @@ const MovableItem = ({
     item: { index, name, currentColumnName },
     type: "Our first type",
     end: (item, monitor) => {
+      console.log(item);
       const dropResult = monitor.getDropResult();
 
       if (dropResult) {
