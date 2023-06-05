@@ -4,6 +4,8 @@ import MovableItem from "../Components/MovableItem";
 import Column from "../Components/Column";
 import { tasks } from "../tasks";
 import { COLUMN_NAMES } from "../constants";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const API_URL = "http://localhost:5005";
 
@@ -62,6 +64,7 @@ function JobListPage() {
 
   return (
     <div className="container">
+    <DndProvider backend={HTML5Backend}>
       <Column title={SAVED_JOBS} className="column do-it-column">
         {returnItemsForColumn(SAVED_JOBS)}
       </Column>
@@ -71,6 +74,7 @@ function JobListPage() {
       <Column title={AWAITING_INFO} className="column awaiting-review-column">
         {returnItemsForColumn(AWAITING_INFO)}
       </Column>
+      </DndProvider>
     </div>
   );
 }
