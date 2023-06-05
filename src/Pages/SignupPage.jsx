@@ -47,7 +47,6 @@ function SignUpPage() {
             <div>
               <label htmlFor="userType">User Type*</label>
             </div>
-
             <div>
               <input
                 type="radio"
@@ -100,5 +99,4 @@ function SignUpPage() {
 }
 
 export default SignUpPage;
-
 

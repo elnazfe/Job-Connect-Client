@@ -1,20 +1,24 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { COLUMN_NAMES } from "../constants";
+import Modal from "react-modal";
+import { useState } from "react";
 
 const MovableItem = ({
   name,
   index,
   currentColumnName,
-  moveCardHandler,
+  //moveCardHandler,
+  description,
   setItems,
 }) => {
   const changeItemColumn = (currentItem, columnName) => {
     setItems((prevState) => {
-      return prevState.map((e) => {
+      return prevState.map((item) => {
+        console.log(item.title);
+        console.log(currentItem.title);
         return {
-          ...e,
-          column: e.name === currentItem.name ? columnName : e.column,
+          ...item,
+          column: item.title === currentItem.name ? columnName : item.column,
         };
       });
     });
@@ -44,8 +48,6 @@ const MovableItem = ({
       // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
       // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -55,12 +57,9 @@ const MovableItem = ({
         return;
       }
       // Time to actually perform the action
-      moveCardHandler(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex;
+      //moveCardHandler(dragIndex, hoverIndex);
+      // Mutating the monitor item here!
+      //item.index = hoverIndex;
     },
   });
 
@@ -72,34 +71,77 @@ const MovableItem = ({
 
       if (dropResult) {
         const { name } = dropResult;
-        const { SAVED_JOBS, APPLIED_JOBS, AWAITING_INFO } = COLUMN_NAMES;
         switch (name) {
-          case APPLIED_JOBS:
-            changeItemColumn(item, APPLIED_JOBS);
+          case "Applied":
+            changeItemColumn(item, "Applied");
             break;
-          case AWAITING_INFO:
-            changeItemColumn(item, AWAITING_INFO);
+          case "Pending":
+            changeItemColumn(item, "Pending");
             break;
-          case SAVED_JOBS:
-            changeItemColumn(item, SAVED_JOBS);
+          case "Saved":
+            changeItemColumn(item, "Saved");
             break;
           default:
             break;
         }
       }
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    //collect: (monitor) => ({
+    //isDragging: monitor.isDragging(),
+    //}),
   });
 
   const opacity = isDragging ? 0.4 : 1;
 
   drag(drop(ref));
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItemName, setSelectedItemName] = useState("");
+
+  const openModal = (name) => {
+    setSelectedItemName(name);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const deleteItem = () => {
+    // Perform deletion logic
+    console.log("Job deleted:", selectedItemName);
+    closeModal();
+  };
+
+  // const [title, setTitle] = useState('');
+  // const [companyName, setCompanyName] = useState('');
+  // const [jobURL, setJobURL] = useState(undefined);
+
+  // const handleTitle = (e) => {
+  //   setTitle(e.target.value);
+  // };
+  // const handleCompanyName = (e) => {
+  //   setCompanyName(e.target.value);
+  // };
+  // const handleJobURL = (e) => {
+  //   setJobURL(e.target.value);
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const requestBody = { title, companyName, jobURL };
+
   return (
     <div ref={ref} className="movable-item" style={{ opacity }}>
-      {name}
+      <button onClick={() => openModal(name)}>More</button>
+      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+        <p>Title:{name} </p>
+        <p>Company: </p>
+        <p>Job URL: </p>
+        <p>Description: {description} </p>
+        <button onClick={closeModal}>Close</button>
+        <button onClick={deleteItem}>Delete</button>
+      </Modal>
     </div>
   );
 };

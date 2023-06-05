@@ -1,10 +1,10 @@
 // src/components/AddJob.jsx
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../Context/auth.context";
 
-
-const API_URL = "http://localhost:5005/";
+const API_URL = "http://localhost:5005";
 
 function AddJob(props) {
   const [title, setTitle] = useState("");
@@ -14,29 +14,38 @@ function AddJob(props) {
   const [status, setStatus] = useState("");
   const [notes, setNotes] = useState("");
 
-  const handleSubmit = (e) =>{
+  const { user } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const requestBody = {title, companyName, jobURL, description, status, notes};
-
-    axios
-    .post(`${API_URL}/api/addjob`, requestBody)
-    .then((response) => {
-      setTitle("");
-      setCompanyName("");
-      setJobURL("");
-      setDescription("");
-      setStatus("");
-      setNotes("");
-    })
-    .catch((error) => console.log(error));
+    const requestBody = {
+      title,
+      companyName,
+      jobURL,
+      description,
+      status,
+      notes,
+      user,
     };
 
+    axios
+      .post(`${API_URL}/api/jobs/addjob`, requestBody)
+      .then((response) => {
+        setTitle("");
+        setCompanyName("");
+        setJobURL("");
+        setDescription("");
+        setStatus("");
+        setNotes("");
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div>
-    <h3>My Jobs</h3>
-      <form>
+      <h3>My Jobs</h3>
+      <form onSubmit={handleSubmit}>
         <label>Title:</label>
         <input
           type="text"
