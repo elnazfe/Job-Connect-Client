@@ -35,8 +35,7 @@ function AddJob(props) {
 
   return (
     <div>
-      <h3>My Job</h3>
-
+    <h3>My Jobs</h3>
       <form>
         <label>Title:</label>
         <input

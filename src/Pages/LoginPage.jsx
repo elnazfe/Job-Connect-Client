@@ -13,7 +13,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const { storeToken, authenticateUser, user } = useContext(AuthContext);
-  
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
@@ -36,7 +35,7 @@ function LoginPage() {
   };
 
   return (
-    <div>
+    <div className='auth-box'>
       <div>
         <h1>Login </h1>
         <form onSubmit={handleLoginSubmit}>
