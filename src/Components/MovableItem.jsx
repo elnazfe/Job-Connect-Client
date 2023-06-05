@@ -2,20 +2,21 @@ import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Modal from "react-modal";
 import { useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:5005/api";
 
 const MovableItem = ({
   name,
+  item,
   index,
   currentColumnName,
-  //moveCardHandler,
-  description,
   setItems,
+  jobs,
 }) => {
-  const changeItemColumn = (currentItem, columnName) => {
+  const changeItemColumn = async (currentItem, columnName) => {
     setItems((prevState) => {
       return prevState.map((item) => {
-        console.log(item.title);
-        console.log(currentItem.title);
         return {
           ...item,
           column: item.title === currentItem.name ? columnName : item.column,
@@ -64,14 +65,28 @@ const MovableItem = ({
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { index, name, currentColumnName },
+    item: { index, name, currentColumnName, item },
     type: "Our first type",
-    end: (item, monitor) => {
-      console.log(item);
+    end: async (item, monitor) => {
       const dropResult = monitor.getDropResult();
 
       if (dropResult) {
         const { name } = dropResult;
+        const { item: job } = item;
+
+        const storedToken = localStorage.getItem("authToken");
+
+        await axios.put(
+          `${API_URL}/jobs/${job._id}`,
+          {
+            ...job,
+            column: name,
+          },
+          {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          }
+        );
+
         switch (name) {
           case "Applied":
             changeItemColumn(item, "Applied");
@@ -87,9 +102,9 @@ const MovableItem = ({
         }
       }
     },
-    //collect: (monitor) => ({
-    //isDragging: monitor.isDragging(),
-    //}),
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const opacity = isDragging ? 0.4 : 1;
@@ -97,10 +112,8 @@ const MovableItem = ({
   drag(drop(ref));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedItemName, setSelectedItemName] = useState("");
 
-  const openModal = (name) => {
-    setSelectedItemName(name);
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
@@ -108,38 +121,30 @@ const MovableItem = ({
     setIsModalOpen(false);
   };
 
-  const deleteItem = () => {
+  const deleteItem = async () => {
     // Perform deletion logic
-    console.log("Job deleted:", selectedItemName);
+    const storedToken = localStorage.getItem("authToken");
+
+    await axios.delete(`${API_URL}/jobs/${item._id}`, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    });
+
+    setItems(jobs.filter((job) => job._id !== item._id));
+
     closeModal();
   };
 
-  // const [title, setTitle] = useState('');
-  // const [companyName, setCompanyName] = useState('');
-  // const [jobURL, setJobURL] = useState(undefined);
-
-  // const handleTitle = (e) => {
-  //   setTitle(e.target.value);
-  // };
-  // const handleCompanyName = (e) => {
-  //   setCompanyName(e.target.value);
-  // };
-  // const handleJobURL = (e) => {
-  //   setJobURL(e.target.value);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const requestBody = { title, companyName, jobURL };
+  Modal.setAppElement("#root");
 
   return (
     <div ref={ref} className="movable-item" style={{ opacity }}>
-      <button onClick={() => openModal(name)}>More</button>
+      <p>{item.title}</p>
+      <button onClick={() => openModal()}>More</button>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <p>Title:{name} </p>
-        <p>Company: </p>
-        <p>Job URL: </p>
-        <p>Description: {description} </p>
+        <p>Title: {item.title} </p>
+        <p>Company: {item.companyName}</p>
+        <p>Job URL: {item.jobURL}</p>
+        <p>Description: {item.description} </p>
         <button onClick={closeModal}>Close</button>
         <button onClick={deleteItem}>Delete</button>
       </Modal>

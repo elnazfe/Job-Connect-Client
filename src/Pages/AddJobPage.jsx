@@ -3,6 +3,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
@@ -16,8 +17,12 @@ function AddJob(props) {
 
   const { user } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const storedToken = localStorage.getItem("authToken");
 
     const requestBody = {
       title,
@@ -30,7 +35,9 @@ function AddJob(props) {
     };
 
     axios
-      .post(`${API_URL}/api/jobs/addjob`, requestBody)
+      .post(`${API_URL}/api/jobs/addjob`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         setTitle("");
         setCompanyName("");
@@ -40,6 +47,8 @@ function AddJob(props) {
         setNotes("");
       })
       .catch((error) => console.log(error));
+
+    navigate(`/jobs`);
   };
 
   return (

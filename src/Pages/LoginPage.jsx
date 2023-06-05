@@ -1,15 +1,15 @@
-import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Context/auth.context';
-import axios from 'axios';
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/auth.context";
+import axios from "axios";
 
-const API_URL = "http://localhost:5005"
+const API_URL = "http://localhost:5005";
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  
+
   const navigate = useNavigate();
 
   const { storeToken, authenticateUser, user } = useContext(AuthContext);
@@ -27,15 +27,19 @@ function LoginPage() {
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate(`/profile/${user._id}`);
       })
       .catch((err) => {
+        console.log(err);
         setErrorMessage(err.errorMessage);
       });
   };
 
+  useEffect(() => {
+    if (user) navigate(`/profile/${user._id}`);
+  }, [user, navigate]);
+
   return (
-    <div className='auth-box'>
+    <div className="auth-box">
       <div>
         <h1>Login </h1>
         <form onSubmit={handleLoginSubmit}>
@@ -55,13 +59,9 @@ function LoginPage() {
             onChange={handlePassword}
           />
 
-          <button type="submit">
-            Log in
-          </button>
+          <button type="submit">Log in</button>
           <p>Don't have an account yet?</p>
-          <Link to={'/signup'}>
-            Sign Up here
-          </Link>
+          <Link to={"/signup"}>Sign Up here</Link>
         </form>
         {errorMessage && <p>{errorMessage}</p>}
       </div>

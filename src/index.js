@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProviderWrapper } from "./Context/auth.context";
-import WebFont from 'webfontloader';
+import WebFont from "webfontloader";
+import { createRoot } from "react-dom/client";
 
 function RootComponent() {
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ['Kanit']
-      }
+        families: ["Kanit"],
+      },
     });
   }, []);
 
@@ -27,5 +27,9 @@ function RootComponent() {
   );
 }
 
-ReactDOM.render(<RootComponent />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(<RootComponent />);
+
 reportWebVitals();
