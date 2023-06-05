@@ -1,18 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import MovableItem from "../Components/MovableItem";
 import Column from "../Components/Column";
-import { tasks } from "../tasks";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/auth.context";
 import { COLUMN_NAMES } from "../constants";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { hover } from "@testing-library/user-event/dist/hover";
+
+const { SAVED_JOBS } = COLUMN_NAMES;
 
 const API_URL = "http://localhost:5005";
 
 function JobListPage() {
-  const [items, setItems] = useState(tasks);
+  const [items, setItems] = useState(null);
 
-  const moveCardHandler = (dragIndex, hoverIndex) => {
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) {
+      setItems(user.bookmark);
+    }
+  }, [user]);
+
+  /*const moveCardHandler = (dragIndex, hoverIndex) => {
     const dragItem = items[dragIndex];
 
     if (dragItem) {
@@ -28,19 +40,20 @@ function JobListPage() {
         return coppiedStateArray;
       });
     }
-  };
+  };*/
 
   const returnItemsForColumn = (columnName) => {
     return items
       .filter((item) => item.column === columnName)
       .map((item, index) => (
         <MovableItem
-          key={item.id}
-          name={item.name}
+          key={item._id}
+          name={item.title}
+          description={item.description}
           currentColumnName={item.column}
           setItems={setItems}
           index={index}
-          moveCardHandler={moveCardHandler}
+          //moveCardHandler={moveCardHandler}
         />
       ));
   };
@@ -64,17 +77,20 @@ function JobListPage() {
 
   return (
     <div className="container">
-    <DndProvider backend={HTML5Backend}>
-      <Column title={SAVED_JOBS} className="column do-it-column">
-        {returnItemsForColumn(SAVED_JOBS)}
-      </Column>
-      <Column title={APPLIED_JOBS} className="column in-progress-column">
-        {returnItemsForColumn(APPLIED_JOBS)}
-      </Column>
-      <Column title={AWAITING_INFO} className="column awaiting-review-column">
-        {returnItemsForColumn(AWAITING_INFO)}
-      </Column>
+      <DndProvider backend={HTML5Backend}>
+        <Column title={"Saved"} className="column do-it-column">
+          {items ? returnItemsForColumn("Saved") : null}
+        </Column>
+        <Column title={"Applied"} className="column in-progress-column">
+          {items ? returnItemsForColumn("Applied") : null}
+        </Column>
+        <Column title={"Pending"} className="column awaiting-review-column">
+          {items ? returnItemsForColumn("Pending") : null}
+        </Column>
       </DndProvider>
+      <Link to="/addjob">
+        <button>Add a Job</button>
+      </Link>
     </div>
   );
 }

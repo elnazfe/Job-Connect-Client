@@ -1,25 +1,31 @@
-// src/index.js
-
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
 import { BrowserRouter as Router } from "react-router-dom";
-
 import { AuthProviderWrapper } from "./Context/auth.context";
+import WebFont from 'webfontloader';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+function RootComponent() {
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ['Kanit']
+      }
+    });
+  }, []);
 
-root.render(
-  <React.StrictMode>
-    <Router>
-      <AuthProviderWrapper>
-        <App />
-      </AuthProviderWrapper>
-    </Router>
-  </React.StrictMode>
-);
+  return (
+    <React.StrictMode>
+      <Router>
+        <AuthProviderWrapper>
+          <App />
+        </AuthProviderWrapper>
+      </Router>
+    </React.StrictMode>
+  );
+}
 
+ReactDOM.render(<RootComponent />, document.getElementById("root"));
 reportWebVitals();

@@ -1,6 +1,5 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { COLUMN_NAMES } from "../constants";
 
 const Column = ({ children, className, title }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
@@ -12,13 +11,12 @@ const Column = ({ children, className, title }) => {
     }),
     // Override monitor.canDrop() function
     canDrop: (item) => {
-      const { SAVED_JOBS, APPLIED_JOBS, AWAITING_INFO } = COLUMN_NAMES;
       const { currentColumnName } = item;
       return (
-        currentColumnName === title ||
-        (currentColumnName === SAVED_JOBS && title === APPLIED_JOBS) ||
-        (currentColumnName === APPLIED_JOBS &&
-          (title === SAVED_JOBS || title === AWAITING_INFO))
+        currentColumnName === title 
+        (currentColumnName === "Saved" && title === "Applied") 
+        (currentColumnName === "Applied" &&
+          (title === "Saved" || title === "Pending"))
       );
     },
   });
