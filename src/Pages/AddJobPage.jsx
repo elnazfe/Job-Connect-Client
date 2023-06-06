@@ -63,6 +63,21 @@ function AddJob(props) {
           onChange={(e) => setTitle(e.target.value)}
         />
 
+    <label>Company:</label>
+        <input
+          type="text"
+          name="title"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+        />
+    <label>Job URL:</label>
+        <input
+          type="text"
+          name="title"
+          value={jobURL}
+          onChange={(e) => setJobURL(e.target.value)}
+        />
+
         <label>Description:</label>
         <textarea
           type="text"

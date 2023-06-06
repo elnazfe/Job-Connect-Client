@@ -8,7 +8,8 @@ import Button from "@mui/material/Button";
 import { AuthContext } from "../Context/auth.context";
 
 function Navbar() {
-  const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
+
 
   return (
     <div>
@@ -38,7 +39,8 @@ function Navbar() {
             <Button color="inherit" component={Link} to="/jobs">
               My Jobs
             </Button>
-            <Button color="inherit" component={Link} to="/logout">
+            <Button onClick={logoutUser}
+            color="inherit" component={Link} to="/logout">
               Logout
             </Button>
             <Stack direction="row" spacing={2}>

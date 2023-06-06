@@ -69,6 +69,7 @@ function LoginPage() {
   useEffect(() => {
     if (user) navigate(`/profile/${user._id}`);
   }, [user, navigate]);
+  
 
   return (
     <div className="auth-box">
@@ -99,6 +100,7 @@ function LoginPage() {
         <p onClick={signInWithGoogle}>Sign in With Google</p>
         <p onClick={signInWithGitHub}>Sign in With Git Hub</p>
         <p onClick={()=>auth.signOut()}>Logout</p>
+        
         {user? <p>You are logged in</p> : <p>You are logged out</p>}
         {errorMessage && <p>{errorMessage}</p>}
       </div>

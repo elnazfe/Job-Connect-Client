@@ -45,12 +45,17 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   }, []);
 
-  const logout = () => {
+  const removeToken = () => {
     //first, we remove the token from the local storage
     localStorage.removeItem("authToken");
     //we run authenticate again to reset the states
     authenticateUser();
   };
+
+  const logoutUser = () => {
+    removeToken();
+    authenticateUser();
+  }
 
   // funtion to call the backend route updateToken that updates the token everytime the user to perform changes
   const tokenUpdate = async () => {
@@ -73,7 +78,7 @@ function AuthProviderWrapper(props) {
         loading,
         storeToken,
         authenticateUser,
-        logout,
+        logoutUser,
         tokenUpdate,
       }}
     >
