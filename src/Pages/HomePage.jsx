@@ -27,32 +27,39 @@ function HomePage() {
 
     return (
       <div
-          style={{
-          display: 'flex',
+  style={{
+    display: 'flex',
+    justifyContent: 'center', // Horizontally center the content
+    alignItems: 'center', // Vertically center the content
+    //height: '100vh', // Set the height of the container to fill the viewport
+    fontFamily: 'Tahoma',
+  }}
+  className="home-page"
+>
+  <div>
+    <h1 style={{ textAlign: 'left' }}>Achieving Your Career Goals</h1>
 
-          fontFamily: "Tahoma"
-        }}
-      >
-        <div>
-          <h1 style={{ marginLeft: "15%", marginTop:'10%', textAlign: "left" }}>Achieving Your Career Goals</h1>
+    <h3 style={{ textAlign: 'left' }}>
+      Simplify your job search and achieve your career goals with JobConnect today.
+    </h3>
 
-          <h3 style={{ marginLeft: "15%", marginTop:'10%', textAlign: "left" }}> Simplify your job search and achieve your career goals with JobConnect today. </h3>
+    <br />
+    <br />
+    <ColorButton component={Link} to="/signup">Sign Up Here</ColorButton>
+    <br />
+    <br />
+    <p>Already have an account?</p>
+    <Link to="/login">Log In here</Link>
+    <br />
+  </div>
 
-          <br/>
-          <br/>
-        <ColorButton component={Link} to="/signup">Sign Up Here</ColorButton>
-<br/>
-<br/>
-<p>Already have an account?</p>
-        <Link to="/login">
-          Log In here
-        </Link>
-<br/>
-        </div>
+  <img
+    src="/icon (9).svg"
+    alt="Image"
+    style={{ width: '500px', margin: '2%', marginRight: '5%' }}
+  />
+</div>
 
-        <img src="/icon (9).svg" alt="Image" style={{ width: "500px", margin: "2%", marginRight: '5%'}} />
-
-      </div>
       );
   }
 
