@@ -1,8 +1,11 @@
+// MovableItem page with Modal
+
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Modal from "react-modal";
 import { useState } from "react";
 import axios from "axios";
+import AddToCalendar from "../Pages/AddToCalendar";
 
 const API_URL = "http://localhost:5005/api";
 
@@ -117,6 +120,7 @@ const MovableItem = ({
   const [editedJobURL, setEditedJobURL] = useState(item.jobURL);
   const [editedDescription, setEditedDescription] = useState(item.description);
   const [isEditing, setIsEditing] = useState(false);
+  const [isAddingToCalendar, setIsAddingToCalendar] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -125,6 +129,7 @@ const MovableItem = ({
   const closeModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
+    setIsAddingToCalendar(false);
   };
 
   const deleteItem = async () => {
@@ -176,6 +181,10 @@ const MovableItem = ({
 
   Modal.setAppElement("#root");
 
+  const addToCalendar = () => {
+    setIsAddingToCalendar(true);
+  };
+
   return (
     <div ref={ref} className="movable-item" style={{ opacity }}>
       <p>{item.title}</p>
@@ -211,8 +220,14 @@ const MovableItem = ({
             <p>Job URL: {item.jobURL}</p>
             <p>Description: {item.description} </p>
             <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={addToCalendar}>Add to Calendar</button>
           </>
         )}
+
+        {isAddingToCalendar && (
+          <AddToCalendar closeModal={closeModal} item={item} />
+        )}
+
         <button onClick={closeModal}>Close</button>
         <button onClick={deleteItem}>Delete</button>
       </Modal>

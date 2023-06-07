@@ -17,11 +17,10 @@ import ProfileDetailPage from "./Pages/ProfileDetailPage";
 import EmployeeListPage from "./Pages/EmployeeListPage";
 import AddEmployeePage from "./Pages/AddEmployeePage"
 import ComingSoon from "./Pages/ComingSoon";
-import AddToCalendarPage from "./Pages/AddToCalendarPage";
+import AddToCalendar from "./Pages/AddToCalendar";
 
 import { useContext } from "react";
 import { AuthContext } from "./Context/auth.context";
-import AddToCalendar from "./Pages/AddToCalendarPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -45,7 +44,7 @@ function App() {
             <Route path="/jobdetail" element={<JobDetailPage />} />
             <Route path="/addemployee" element={<AddEmployeePage />} />
             <Route path="/comingsoon" element={<ComingSoon />} />
-            <Route path="/addtocalendar" element={<AddToCalendarPage />} />
+            <Route path="/addtocalendar" element={<AddToCalendar />} />
           </>
         )}
       </Routes>
