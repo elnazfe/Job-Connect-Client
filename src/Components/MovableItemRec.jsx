@@ -12,7 +12,7 @@ const MovableItemRec = ({
   index,
   currentColumnName,
   setItems,
-  jobs,
+  employees,
 }) => {
   const changeItemColumn = async (currentItem, columnName) => {
     setItems((prevState) => {
@@ -121,6 +121,8 @@ const MovableItemRec = ({
     setIsModalOpen(false);
   };
 
+  
+
   const deleteItem = async () => {
     // Perform deletion logic
     const storedToken = localStorage.getItem("authToken");
@@ -141,7 +143,7 @@ const MovableItemRec = ({
       <p>{item.jobPosition}</p>
       <button onClick={() => openModal()}>More</button>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <p>Job Position: {item.jobPosition} </p>
+        <p>Job position: {item.jobPosition} </p>
         <p>Employee Name: {item.employeeName}</p>
         <p>Description: {item.description} </p>
         <button onClick={closeModal}>Close</button>

@@ -41,6 +41,8 @@ function HomePage() {
           <br/>
         <ColorButton component={Link} to="/signup">Sign Up Here</ColorButton>
 <br/>
+<br/>
+<p>Already have an account</p>
         <Link to="/login">
           Log In here
         </Link>

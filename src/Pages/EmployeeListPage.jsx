@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import MovableItemRec from "../Components/MovableItem";
-import ColumnRec from "../Components/Column";
+import MovableItemRec from "../Components/MovableItemRec";
+import ColumnRec from "../Components/ColumnRec";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/auth.context";
 import { DndProvider } from "react-dnd";
@@ -61,7 +61,7 @@ function EmployeeListPage() {
           {employees ? returnItemsForColumn("Interview") : null}
         </ColumnRec>
       </DndProvider>
-      <Link to="/addemplpyee">
+      <Link to="/addemployee">
         <button>Add an Employee</button>
       </Link>
     </div>

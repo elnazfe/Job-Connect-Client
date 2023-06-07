@@ -28,6 +28,7 @@ function AddEmployee(props) {
       description,
       notes,
       user,
+    
     };
 
     axios
@@ -49,7 +50,7 @@ function AddEmployee(props) {
     <div>
       <h3>List of Employee</h3>
       <form onSubmit={handleSubmit}>
-        <label>jobPosition:</label>
+        <label>Job Position:</label>
         <input
           type="text"
           name="job Position"

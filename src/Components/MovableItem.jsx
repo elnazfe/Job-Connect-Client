@@ -112,6 +112,11 @@ const MovableItem = ({
   drag(drop(ref));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(item.title);
+  const [editedCompany, setEditedCompany] = useState(item.companyName);
+  const [editedJobURL, setEditedJobURL] = useState(item.jobURL);
+  const [editedDescription, setEditedDescription] = useState(item.description);
+  const [isEditing, setIsEditing] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -119,6 +124,7 @@ const MovableItem = ({
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsEditing(false);
   };
 
   const deleteItem = async () => {
@@ -134,6 +140,40 @@ const MovableItem = ({
     closeModal();
   };
 
+  const updateItem = async () => {
+    const storedToken = localStorage.getItem("authToken");
+
+    await axios.put(
+      `${API_URL}/jobs/${item._id}`,
+      {
+        ...item,
+        title: editedTitle,
+        companyName: editedCompany,
+        jobURL: editedJobURL,
+        description: editedDescription,
+      },
+      {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      }
+    );
+
+    setItems((prevItems) =>
+      prevItems.map((job) =>
+        job._id === item._id
+          ? {
+              ...job,
+              title: editedTitle,
+              companyName: editedCompany,
+              jobURL: editedJobURL,
+              description: editedDescription,
+            }
+          : job
+      )
+    );
+
+    closeModal();
+  };
+
   Modal.setAppElement("#root");
 
   return (
@@ -141,10 +181,38 @@ const MovableItem = ({
       <p>{item.title}</p>
       <button onClick={() => openModal()}>More</button>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <p>Title: {item.title} </p>
-        <p>Company: {item.companyName}</p>
-        <p>Job URL: {item.jobURL}</p>
-        <p>Description: {item.description} </p>
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              value={editedCompany}
+              onChange={(e) => setEditedCompany(e.target.value)}
+            />
+            <input
+              type="text"
+              value={editedJobURL}
+              onChange={(e) => setEditedJobURL(e.target.value)}
+            />
+            <textarea
+              value={editedDescription}
+              onChange={(e) => setEditedDescription(e.target.value)}
+            ></textarea>
+            <button onClick={updateItem}>Save</button>
+          </>
+        ) : (
+          <>
+            <p>Title: {item.title} </p>
+            <p>Company: {item.companyName}</p>
+            <p>Job URL: {item.jobURL}</p>
+            <p>Description: {item.description} </p>
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+          </>
+        )}
         <button onClick={closeModal}>Close</button>
         <button onClick={deleteItem}>Delete</button>
       </Modal>

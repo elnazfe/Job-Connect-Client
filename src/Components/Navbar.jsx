@@ -36,12 +36,9 @@ function Navbar() {
             >
               My Dashboard
             </Button>
-            <Button color="inherit" component={Link} to="/jobs">
-              My Jobs
-            </Button>
             <Button onClick={logoutUser}
             color="inherit" component={Link} to="/">
-              Logou
+              Logout
             </Button>
             <Link to={`/profile/${user._id}`}>
               <Avatar src="/public/avator-icon.jpg"/>
