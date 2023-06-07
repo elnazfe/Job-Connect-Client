@@ -16,6 +16,8 @@ import EditProfilePage from "./Pages/EditProfilePage";
 import ProfileDetailPage from "./Pages/ProfileDetailPage";
 import EmployeeListPage from "./Pages/EmpolyeeListPage";
 import AddEmployeePage from "./Pages/AddEmployeePage"
+import ComingSoon from "./Pages/ComingSoon";
+
 import { useContext } from "react";
 import { AuthContext } from "./Context/auth.context";
 
@@ -40,6 +42,7 @@ function App() {
             <Route path="/jobdetail" element={<JobDetailPage />} />
             <Route path="/recruiter" element={<EmployeeListPage />} />
             <Route path="/addemplpyee" element={<AddEmployeePage />} />
+            <Route path="/comingsoon" element={<ComingSoon />} />
 
           </>
         )}

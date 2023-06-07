@@ -10,8 +10,12 @@ function EditProfilePage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
- /*  const [profileImg, setProfileImg = useState(''); */
+  const [profileImg, setProfileImg] = useState('');
+
+  const [uploading, setUploading] = useState(false);
+
   const { id } = useParams();
+
   const navigate = useNavigate();
   const { logout, tokenUpdate } = useContext(AuthContext);
 
@@ -39,9 +43,28 @@ function EditProfilePage() {
     getProfile();
   }, []);
 
+
+  const handleImageChange = (e) => {
+    setUploading(true);
+
+    const uploadData = new FormData();
+
+    uploadData.append("profileImg", e.target.files[0]);
+
+    axios
+      .post(`${API_URL}/api/upload`, uploadData)
+      .then((response) => {
+        setProfileImg(response.data.fileUrl);
+        console.log(profileImg);
+        setUploading(false);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const body = { firstName, lastName, address };
+    const body = { firstName, lastName, address, profileImg };
     try {
       const storedToken = localStorage.getItem('authToken');
 
@@ -52,7 +75,7 @@ function EditProfilePage() {
       setFirstName('');
       setLastName('');
       setAddress('');
-      tokenUpdate();
+      setProfileImg('')
 
       navigate(`/profile/${id}`);
     } catch (error) {
@@ -96,13 +119,18 @@ function EditProfilePage() {
               type="text"
               name="Street"
               value={address}
-              onChange={handleAddress}
-            />
+              onChange={handleAddress}/>
             <br />
-
+            <label>Image:</label>
+            <input
+              type="file"
+              onChange={(e) => handleImageChange(e)} 
+            />
+            
             <button type="submit">
               Save changes
             </button>
+            
           </form>
 
           <button onClick={deleteProfile}>

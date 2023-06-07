@@ -40,12 +40,12 @@ function Navbar() {
               My Jobs
             </Button>
             <Button onClick={logoutUser}
-            color="inherit" component={Link} to="/logout">
-              Logout
+            color="inherit" component={Link} to="/">
+              Logou
             </Button>
-            <Stack direction="row" spacing={2}>
-              <Avatar alt="Remy Sharp" src="/img_avatar.png" />
-            </Stack>
+            <Link to={`/profile/${user._id}`}>
+              <Avatar src="/public/avator-icon.jpg"/>
+            </Link>
           </>
         )}
       </Toolbar>

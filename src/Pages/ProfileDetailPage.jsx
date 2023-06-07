@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 
+import Avatar from "@mui/material/Avatar";
+import { Height } from '@mui/icons-material';
+
 const API_URL = "http://localhost:5005"
 
 function Profile() {
@@ -32,7 +35,7 @@ function Profile() {
 
   return (
     <div>
-            <img alt="profile-pic"/>
+            <img src={user.profileImg} alt="Profile" style={{width: "100px", height: '100px',  borderRadius: "50%"}}/>
             <h1>
               {user.firstName} {user.lastName}
             </h1>

@@ -66,47 +66,83 @@ function UserProfilePage() {
                 <h1>Hello, Jobseeker {user.firstName}</h1>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>
+                <Item sx={{ bgcolor: "#CAAACD" }}>
+                  <br />
                   <img src="/icon.svg" alt="Image" style={{ width: "50%" }} />
                   <br />
+                  <br />
                   <Link to={`/jobs`}>Dashboard</Link>
+                  <br />
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (1).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
+              < Item sx={{ bgcolor: "#CB962E" }}>
+                  <br />
+                  <img src="/icon (1).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
                   <br />
                   <Link to={`/profile/${user._id}/detail`}>Your Profile</Link>
+                  <br />
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (2).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
+                < Item sx={{ bgcolor: "#EF601E" }}>
+                  <br />
+                  <img src="/icon (2).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
                   <br />
                   <Link to={`/profile/${user._id}/edit`}>
                     Edit Your Profile
                   </Link>
+                  <br />
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>5</Item>
+                < Item sx={{ bgcolor: "#D6E8F7" }}>
+                  <br />
+                  <img src="/icon (3).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <br />
+                  <Link to={`/comingsoon`}>CV & Resume</Link>
+                  <br />
+                  <br/>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>6</Item>
+                < Item sx={{ bgcolor: "#EF601E" }}>
+                  <br />
+                  <img src="/icon (4).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <br />
+                  <Link to={`/comingsoon`}>Calenedar</Link>
+                  <br />
+                  <br/>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>7</Item>
+                < Item sx={{ bgcolor: "#D6E8F7" }}>
+                  <br />
+                  <img src="/icon (5).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <br />
+                  <Link to={`/comingsoon`}>Blog</Link>
+                  <br />
+                  <br/>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>8</Item>
+                < Item sx={{ bgcolor: "#F1DFB6" }}>
+                  <br />
+                  <img src="/icon (6).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <br />
+                  <Link to={`/comingsoon`}>Events</Link>
+                  <br />
+                  <br/>
+                </Item>
               </Grid>
             </Grid>
           </Box>
@@ -160,16 +196,32 @@ function UserProfilePage() {
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>5</Item>
+                <Item>
+                  <img src="/icon (3).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <Link to={`/commingsoon`}>CV & Resume</Link>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>6</Item>
+                <Item>
+                  <img src="/icon (4).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <Link to={`/comingsoon`}>Calendar</Link>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>7</Item>
+                <Item>
+                  <img src="/icon (5).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <Link to={`/comingsoon`}>Blog</Link>
+                </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                <Item>8</Item>
+                <Item>
+                  <img src="/icon (6).svg" alt="Image" style={{ width: "50%" }} />
+                  <br />
+                  <Link to={`/comingsoon`}>Events</Link>
+                </Item>
               </Grid>
             </Grid>
           </Box>
