@@ -24,7 +24,6 @@ function UserProfilePage() {
       });
 
       setUser(response.data);
-      console.log(response.data);
 
       if (response.data.userType === "JobSeeker") {
         setJobseeker(true);
@@ -77,9 +76,13 @@ function UserProfilePage() {
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-              < Item sx={{ bgcolor: "#CB962E" }}>
+                <Item sx={{ bgcolor: "#CB962E" }}>
                   <br />
-                  <img src="/icon (1).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (1).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
                   <Link to={`/profile/${user._id}/detail`}>Your Profile</Link>
@@ -88,9 +91,13 @@ function UserProfilePage() {
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                < Item sx={{ bgcolor: "#EF601E" }}>
+                <Item sx={{ bgcolor: "#EF601E" }}>
                   <br />
-                  <img src="/icon (2).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (2).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
                   <Link to={`/profile/${user._id}/edit`}>
@@ -101,47 +108,63 @@ function UserProfilePage() {
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                < Item sx={{ bgcolor: "#D6E8F7" }}>
+                <Item sx={{ bgcolor: "#D6E8F7" }}>
                   <br />
-                  <img src="/icon (3).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (3).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
                   <Link to={`/comingsoon`}>CV & Resume</Link>
                   <br />
-                  <br/>
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                < Item sx={{ bgcolor: "#EF601E" }}>
+                <Item sx={{ bgcolor: "#EF601E" }}>
                   <br />
-                  <img src="/icon (4).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (4).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
                   <Link to={`/comingsoon`}>Calenedar</Link>
                   <br />
-                  <br/>
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                < Item sx={{ bgcolor: "#D6E8F7" }}>
+                <Item sx={{ bgcolor: "#D6E8F7" }}>
                   <br />
-                  <img src="/icon (5).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (5).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
-                  <Link to={`/comingsoon`}>Blog</Link>
+                  <Link to={`/availablejobs`}>Available Jobs</Link>
                   <br />
-                  <br/>
+                  <br />
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
-                < Item sx={{ bgcolor: "#F1DFB6" }}>
+                <Item sx={{ bgcolor: "#F1DFB6" }}>
                   <br />
-                  <img src="/icon (6).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (6).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <br />
                   <Link to={`/comingsoon`}>Events</Link>
                   <br />
-                  <br/>
+                  <br />
                 </Item>
               </Grid>
             </Grid>
@@ -197,28 +220,44 @@ function UserProfilePage() {
               </Grid>
               <Grid item xs={12} sm={3}>
                 <Item>
-                  <img src="/icon (3).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (3).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <Link to={`/commingsoon`}>CV & Resume</Link>
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
                 <Item>
-                  <img src="/icon (4).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (4).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <Link to={`/comingsoon`}>Calendar</Link>
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
                 <Item>
-                  <img src="/icon (5).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (5).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <Link to={`/comingsoon`}>Blog</Link>
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
                 <Item>
-                  <img src="/icon (6).svg" alt="Image" style={{ width: "50%" }} />
+                  <img
+                    src="/icon (6).svg"
+                    alt="Image"
+                    style={{ width: "50%" }}
+                  />
                   <br />
                   <Link to={`/comingsoon`}>Events</Link>
                 </Item>

@@ -14,13 +14,14 @@ import AddJob from "./Pages/AddJobPage";
 import JobDetailPage from "./Pages/JobDetailPage";
 import EditProfilePage from "./Pages/EditProfilePage";
 import ProfileDetailPage from "./Pages/ProfileDetailPage";
-import EmployeeListPage from "./Pages/EmployeeListPage";
-import AddEmployeePage from "./Pages/AddEmployeePage"
+import RecruiterListPage from "./Pages/RecruiterListPage";
 import ComingSoon from "./Pages/ComingSoon";
 import AddToCalendar from "./Pages/AddToCalendar";
 
 import { useContext } from "react";
 import { AuthContext } from "./Context/auth.context";
+import AddNewJob from "./Pages/AddNewJobPage";
+import AvailableJobs from "./Pages/AvailableJobs";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -39,12 +40,13 @@ function App() {
             <Route path="/profile/:id/edit" element={<EditProfilePage />} />
             <Route path="/profile/:id/detail" element={<ProfileDetailPage />} />
             <Route path="/jobs" element={<JobListPage />} />
-            <Route path="/recruiter" element={<EmployeeListPage/>} />
+            <Route path="/recruiter" element={<RecruiterListPage />} />
             <Route path="/addjob" element={<AddJob />} />
             <Route path="/jobdetail" element={<JobDetailPage />} />
-            <Route path="/addemployee" element={<AddEmployeePage />} />
+            <Route path="/addnewjob" element={<AddNewJob />} />
             <Route path="/comingsoon" element={<ComingSoon />} />
             <Route path="/addtocalendar" element={<AddToCalendar />} />
+            <Route path="/availablejobs" element={<AvailableJobs />} />
           </>
         )}
       </Routes>

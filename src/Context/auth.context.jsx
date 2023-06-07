@@ -24,9 +24,17 @@ function AuthProviderWrapper(props) {
         const response = await axios.get(`${API_URL}/auth/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
+
+        const userResponse = await axios.get(
+          `${API_URL}/api/profile/${response.data._id}`,
+          {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          }
+        );
+
         //The next part happens if the login was succesfful
         setLoggedIn(true);
-        setUser(response.data);
+        setUser(userResponse.data);
         setLoading(false);
       } else {
         setLoggedIn(false);
@@ -55,7 +63,7 @@ function AuthProviderWrapper(props) {
   const logoutUser = () => {
     removeToken();
     authenticateUser();
-  }
+  };
 
   // funtion to call the backend route updateToken that updates the token everytime the user to perform changes
   const tokenUpdate = async () => {

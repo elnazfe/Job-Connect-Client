@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Modal from "react-modal";
 import { useState } from "react";
@@ -6,14 +6,45 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5005/api";
 
-const MovableItemRec = ({
-  name,
-  item,
-  index,
-  currentColumnName,
-  setItems,
-  employees,
-}) => {
+const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
+  const [applicationUser, setApplicationUser] = useState();
+  const [applicationJob, setApplicationJob] = useState();
+
+  const getApplicationUser = async () => {
+    try {
+      const storedToken = localStorage.getItem("authToken");
+
+      const response = await axios.get(`${API_URL}/profile/${item.user}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      setApplicationUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getApplicationJob = async () => {
+    try {
+      const storedToken = localStorage.getItem("authToken");
+
+      const response = await axios.get(`${API_URL}/jobs/${item.job}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      setApplicationJob(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (item) {
+      getApplicationUser();
+      getApplicationJob();
+    }
+  }, [item]);
+
+  console.log(applicationJob);
+  console.log(applicationUser);
   const changeItemColumn = async (currentItem, columnName) => {
     setItems((prevState) => {
       return prevState.map((item) => {
@@ -65,21 +96,21 @@ const MovableItemRec = ({
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { index, name, currentColumnName, item },
+    item: { index, currentColumnName, item },
     type: "Our first type",
     end: async (item, monitor) => {
       const dropResult = monitor.getDropResult();
 
       if (dropResult) {
         const { name } = dropResult;
-        const { item: employee } = item;
+        const { item: application } = item;
 
         const storedToken = localStorage.getItem("authToken");
 
         await axios.put(
-          `${API_URL}/recruiter/${employee._id}`,
+          `${API_URL}/application/${application._id}`,
           {
-            ...employee,
+            ...application,
             column: name,
           },
           {
@@ -94,8 +125,11 @@ const MovableItemRec = ({
           case "Interview":
             changeItemColumn(item, "Interview");
             break;
-          case "Recieved":
-            changeItemColumn(item, "Recieved");
+          case "Received":
+            changeItemColumn(item, "Received");
+            break;
+          case "Approved":
+            changeItemColumn(item, "Approved");
             break;
           default:
             break;
@@ -121,35 +155,24 @@ const MovableItemRec = ({
     setIsModalOpen(false);
   };
 
-  
-
-  const deleteItem = async () => {
-    // Perform deletion logic
-    const storedToken = localStorage.getItem("authToken");
-
-    await axios.delete(`${API_URL}/recruiter/${item._id}`, {
-      headers: { Authorization: `Bearer ${storedToken}` },
-    });
-
-    setItems(employees.filter((employee) => employee._id !== item._id));
-
-    closeModal();
-  };
-
   Modal.setAppElement("#root");
 
   return (
-    <div ref={ref} className="movable-item" style={{ opacity }}>
-      <p>{item.jobPosition}</p>
-      <button onClick={() => openModal()}>More</button>
-      <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <p>Job position: {item.jobPosition} </p>
-        <p>Employee Name: {item.employeeName}</p>
-        <p>Description: {item.description} </p>
-        <button onClick={closeModal}>Close</button>
-        <button onClick={deleteItem}>Delete</button>
-      </Modal>
-    </div>
+    applicationUser &&
+    applicationJob && (
+      <div ref={ref} className="movable-item" style={{ opacity }}>
+        <p>
+          {applicationUser.email} applied to {applicationJob.title}
+        </p>
+        <button onClick={() => openModal()}>More</button>
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <p>Job position: {item.jobPosition} </p>
+          <p>Employee Name: {item.employeeName}</p>
+          <p>Description: {item.description} </p>
+          <button onClick={closeModal}>Close</button>
+        </Modal>
+      </div>
+    )
   );
 };
 

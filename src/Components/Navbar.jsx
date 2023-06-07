@@ -2,14 +2,12 @@ import { Link } from "react-router-dom";
 import React, { useContext } from "react";
 
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { AuthContext } from "../Context/auth.context";
 
 function Navbar() {
   const { user, logoutUser } = useContext(AuthContext);
-
 
   return (
     <div>
@@ -36,12 +34,16 @@ function Navbar() {
             >
               My Dashboard
             </Button>
-            <Button onClick={logoutUser}
-            color="inherit" component={Link} to="/">
+            <Button
+              onClick={logoutUser}
+              color="inherit"
+              component={Link}
+              to="/"
+            >
               Logout
             </Button>
             <Link to={`/profile/${user._id}`}>
-              <Avatar src="/public/avator-icon.jpg"/>
+              <Avatar src={user.profileImg} />
             </Link>
           </>
         )}

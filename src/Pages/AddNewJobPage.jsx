@@ -3,16 +3,15 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
-function AddJob(props) {
+function AddNewJob(props) {
   const [title, setTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [jobURL, setJobURL] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("user");
   const [notes, setNotes] = useState("");
 
   const { user } = useContext(AuthContext);
@@ -29,61 +28,72 @@ function AddJob(props) {
       companyName,
       jobURL,
       description,
-      status,
       notes,
       user,
+      type: "recruiter",
     };
 
     axios
       .post(`${API_URL}/api/jobs/addjob`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then((response) => {
+      .then(() => {
         setTitle("");
         setCompanyName("");
         setJobURL("");
         setDescription("");
-        setStatus("");
         setNotes("");
       })
       .catch((error) => console.log(error));
 
-    navigate(`/jobs`);
+    navigate(`/recruiter`);
   };
 
   return (
     <div>
-      <h3>My Jobs</h3>
+      <h3>Post a new job</h3>
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
         <input
           type="text"
-          name="title"
+          name="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
-        <label>Company:</label>
+        <br />
+        <label>Company Name:</label>
         <input
           type="text"
-          name="title"
+          name="Company name"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
         />
-        <label>Job URL:</label>
+
+        <br />
+        <label>URL:</label>
         <input
           type="text"
-          name="title"
+          name="URL"
           value={jobURL}
           onChange={(e) => setJobURL(e.target.value)}
         />
 
+        <br />
         <label>Description:</label>
         <textarea
           type="text"
-          name="description"
+          name="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <br />
+        <label>Notes:</label>
+        <textarea
+          type="text"
+          name="Notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
         />
 
         <button type="submit">Submit</button>
@@ -92,4 +102,4 @@ function AddJob(props) {
   );
 }
 
-export default AddJob;
+export default AddNewJob;

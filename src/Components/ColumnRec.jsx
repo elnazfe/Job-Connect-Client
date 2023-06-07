@@ -11,12 +11,14 @@ const Column = ({ children, className, title }) => {
     }),
     // Override monitor.canDrop() function
     canDrop: (item) => {
+      console.log(title);
       const { currentColumnName } = item;
       return (
         currentColumnName === title ||
+        (currentColumnName === "Received" && title === "Approved") ||
         (currentColumnName === "Received" && title === "Rejected") ||
-        (currentColumnName === "Rejected" &&
-          (title === "Received" || title === "Interview"))
+        (currentColumnName === "Approved" && title === "Interview") ||
+        (currentColumnName === "Interview" && title === "Rejected")
       );
     },
   });
