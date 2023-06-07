@@ -1,43 +1,22 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/auth.context";
 import axios from "axios";
-
-//Login Setup
-import firebase from "../firebaseConfig";
-import { useAuthState } from "react-firebase-hooks/auth"
-import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
-
-const auth = firebase.auth()
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AuthContext } from "../Context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
 function LoginPage() {
-  const [userF] = useAuthState(auth);
-  console.log(userF)
-
-  const handleSocialLog = async () => {
-    const body = {
-      email:user.email,
-      password: user.uid
-    }
-    const response = await axios.post(`${import.meta.env.API_URL}/auth/signup`, 
-    body)
-
-    storeToken(response.authToken)
-    authenticateUser()
-    navigate("/profile")
-  }
-
-  const signInWithGoogle = () =>{
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
-  }
-
-  const signInWithGitHub = () => {
-    const provider = new GithubAuthProvider()
-    signInWithGitHub(auth, provider)
-  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -45,6 +24,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const { storeToken, authenticateUser, user} = useContext(AuthContext);
+
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
@@ -69,42 +49,87 @@ function LoginPage() {
   useEffect(() => {
     if (user) navigate(`/profile/${user._id}`);
   }, [user, navigate]);
-  
+
 
   return (
-    <div className="auth-box">
-      <div>
-        <h1>Login </h1>
-        <form onSubmit={handleLoginSubmit}>
-          <label>Email address*</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmail}
-          />
-
-          <label>Password*</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          />
-
-          <button type="submit">Log in</button>
-          <p>Don't have an account yet?</p>
-          <Link to={"/signup"}>Sign Up here</Link>
-        </form>
-        {/* Can be wrapped in <img></img> */}
-        <p onClick={signInWithGoogle}>Sign in With Google</p>
-        <p onClick={signInWithGitHub}>Sign in With Git Hub</p>
-        <p onClick={()=>auth.signOut()}>Logout</p>
-        
-        {user? <p>You are logged in</p> : <p>You are logged out</p>}
-        {errorMessage && <p>{errorMessage}</p>}
-      </div>
-    </div>
+    <ThemeProvider theme={createTheme()}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <style>
+          {`
+              html, body {
+              background-color: #fdf3dd; // Change the background color of the whole page here
+            }
+          `}
+        </style>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: '#8c52ff' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleLoginSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={handleEmail}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={handlePassword}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                bgcolor: '#8c52ff',
+                '&:hover': {
+                  bgcolor: '#FF5555',
+                },
+              }}
+            >
+              Sign In
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="signup" variant="body2">
+                  Don't have an account? Sign up here
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

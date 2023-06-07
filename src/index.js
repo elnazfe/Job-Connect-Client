@@ -7,6 +7,14 @@ import { AuthProviderWrapper } from "./Context/auth.context";
 import WebFont from "webfontloader";
 import { createRoot } from "react-dom/client";
 
+import { createClient } from '@supabase/supabase-js';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+
+const supabase = createClient(
+  "https://gflaoudfbggrtlzsejdw.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdmbGFvdWRmYmdncnRsenNlamR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODYxMzM1MzgsImV4cCI6MjAwMTcwOTUzOH0.ULPQVZ9rNsXN2LtFwNs5mjDyUnpIbYMMew_HnNEEbwQ"
+);
+
 function RootComponent() {
   useEffect(() => {
     WebFont.load({
@@ -20,7 +28,9 @@ function RootComponent() {
     <React.StrictMode>
       <Router>
         <AuthProviderWrapper>
-          <App />
+          <SessionContextProvider supabaseClient={supabase}>
+            <App />
+           </SessionContextProvider>
         </AuthProviderWrapper>
       </Router>
     </React.StrictMode>

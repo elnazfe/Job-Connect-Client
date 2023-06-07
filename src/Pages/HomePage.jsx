@@ -1,3 +1,4 @@
+//HomePAge
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/auth.context";
@@ -36,13 +37,13 @@ function HomePage() {
           <h1 style={{ marginLeft: "15%", marginTop:'10%', textAlign: "left" }}>Achieving Your Career Goals</h1>
 
           <h3 style={{ marginLeft: "15%", marginTop:'10%', textAlign: "left" }}> Simplify your job search and achieve your career goals with JobConnect today. </h3>
-        
+
           <br/>
           <br/>
         <ColorButton component={Link} to="/signup">Sign Up Here</ColorButton>
 <br/>
 <br/>
-<p>Already have an account</p>
+<p>Already have an account?</p>
         <Link to="/login">
           Log In here
         </Link>
