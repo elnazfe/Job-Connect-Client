@@ -69,10 +69,10 @@ const AvailableJobs = () => {
 
   //display the jobs with criterias
   return (
-    <>
+    <div className="container container-cards">
       {availableJobs &&
         availableJobs.map((job) => (
-          <div key={job._id} className="container">
+          <div key={job._id} className="card-item">
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography
@@ -100,7 +100,7 @@ const AvailableJobs = () => {
             </Card>
           </div>
         ))}
-    </>
+    </div>
   );
 };
 

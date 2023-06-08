@@ -22,9 +22,9 @@ import { useContext } from "react";
 import { AuthContext } from "./Context/auth.context";
 import AddNewJob from "./Pages/AddNewJobPage";
 import AvailableJobs from "./Pages/AvailableJobs";
-import JobPostPage from "./Pages/JobPostPage"
+import JobPostPage from "./Pages/JobPostPage";
 
-import AppliedJobs from "./Pages/AppliedJobs"
+import AppliedJobs from "./Pages/AppliedJobs";
 import Footer from "./Components/Footer";
 import AboutUsPage from "./Pages/AboutUsPage";
 
@@ -34,31 +34,36 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-        {user && (
-          <>
-            <Route path="/profile/:id" element={<UserProfilePage />} />
-            <Route path="/profile/:id/edit" element={<EditProfilePage />} />
-            <Route path="/profile/:id/detail" element={<ProfileDetailPage />} />
-            <Route path="/jobs" element={<JobListPage />} />
-            <Route path="/recruiter" element={<RecruiterListPage />} />
-            <Route path="/addjob" element={<AddJob />} />
-            <Route path="/jobdetail" element={<JobDetailPage />} />
-            <Route path="/jobpost" element={<JobPostPage />} />
-            <Route path="/addnewjob" element={<AddNewJob />} />
-            <Route path="/comingsoon" element={<ComingSoon />} />
-            <Route path="/addtocalendar" element={<AddToCalendar />} />
-            <Route path="/availablejobs" element={<AvailableJobs />} />
-            <Route path="/appliedjobs" element={<AppliedJobs/>}/>
-            <Route path="/aboutus" element={<AboutUsPage/>} />
-          </>
-        )}
-      </Routes>
-      <Footer/>
+          {user && (
+            <>
+              <Route path="/profile/:id" element={<UserProfilePage />} />
+              <Route path="/profile/:id/edit" element={<EditProfilePage />} />
+              <Route
+                path="/profile/:id/detail"
+                element={<ProfileDetailPage />}
+              />
+              <Route path="/jobs" element={<JobListPage />} />
+              <Route path="/recruiter" element={<RecruiterListPage />} />
+              <Route path="/addjob" element={<AddJob />} />
+              <Route path="/jobdetail" element={<JobDetailPage />} />
+              <Route path="/jobpost" element={<JobPostPage />} />
+              <Route path="/addnewjob" element={<AddNewJob />} />
+              <Route path="/comingsoon" element={<ComingSoon />} />
+              <Route path="/addtocalendar" element={<AddToCalendar />} />
+              <Route path="/availablejobs" element={<AvailableJobs />} />
+              <Route path="/appliedjobs" element={<AppliedJobs />} />
+              <Route path="/aboutus" element={<AboutUsPage />} />
+            </>
+          )}
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 }
