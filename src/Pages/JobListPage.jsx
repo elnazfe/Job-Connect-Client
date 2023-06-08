@@ -16,7 +16,13 @@ import {
   TableRow,
 } from "@mui/material";
 
-const API_URL = "http://localhost:5005/api";
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { purple } from '@mui/material/colors';
+
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function JobListPage() {
   const { user } = useContext(AuthContext);
@@ -74,23 +80,57 @@ function JobListPage() {
     }
   }, [user]);
 
+  // MIU
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: theme.palette.getContrastText("#8C52FF"),
+    backgroundColor: "#8C52FF",
+    '&:hover': {
+      backgroundColor: "#8C52FF",
+    },
+  }));
+
   return (
     <>
       <div className="container">
-        <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={HTML5Backend}>
+      <Box sx={{ flexGrow: 1,  marginTop: "20px"}}>
+      <Grid container spacing={2} columns={18}>
+        <Grid item xs={6}>
+          <Item sx={{bgcolor: "#CED1F4"}}>
           <Column title={"Saved"} className="column do-it-column">
-            {jobs ? returnItemsForColumn("Saved") : null}
-            <Link to="/addjob">
-              <button className="add-job-btn">+</button>
-            </Link>
-          </Column>
+          {jobs ? returnItemsForColumn("Saved") : null}
+        </Column>
+          </Item>
+        </Grid>
+        <Grid item xs={6}>
+          <Item sx={{bgcolor: "#CED1F4"}}> 
           <Column title={"Applied"} className="column in-progress-column">
-            {jobs ? returnItemsForColumn("Applied") : null}
-          </Column>
+          {jobs ? returnItemsForColumn("Applied") : null}
+        </Column>
+          </Item>
+        </Grid>
+        <Grid item xs={6}>
+          <Item sx={{bgcolor: "#CED1F4"}}>
           <Column title={"Pending"} className="column awaiting-review-column">
-            {jobs ? returnItemsForColumn("Pending") : null}
-          </Column>
-        </DndProvider>
+          {jobs ? returnItemsForColumn("Pending") : null}
+        </Column>
+          </Item>
+        </Grid>
+      </Grid>
+      <br/>
+      <Link to="/addjob">
+      <ColorButton variant="contained">Add a new job to list</ColorButton>
+      </Link>
+    </Box>
+      </DndProvider>
       </div>
 
       <div className="container">

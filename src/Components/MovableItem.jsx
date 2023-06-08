@@ -7,7 +7,9 @@ import { useState } from "react";
 import axios from "axios";
 import AddToCalendar from "../Pages/AddToCalendar";
 
-const API_URL = "http://localhost:5005/api";
+import Button from '@mui/material/Button';
+
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 const MovableItem = ({
   name,
@@ -80,7 +82,7 @@ const MovableItem = ({
         const storedToken = localStorage.getItem("authToken");
 
         await axios.put(
-          `${API_URL}/jobs/${job._id}`,
+          `${API_URL}/api/jobs/${job._id}`,
           {
             ...job,
             column: name,
@@ -136,7 +138,7 @@ const MovableItem = ({
     // Perform deletion logic
     const storedToken = localStorage.getItem("authToken");
 
-    await axios.delete(`${API_URL}/jobs/${item._id}`, {
+    await axios.delete(`${API_URL}/api/jobs/${item._id}`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     });
 
@@ -149,7 +151,7 @@ const MovableItem = ({
     const storedToken = localStorage.getItem("authToken");
 
     await axios.put(
-      `${API_URL}/jobs/${item._id}`,
+      `${API_URL}/api/jobs/${item._id}`,
       {
         ...item,
         title: editedTitle,
@@ -186,9 +188,15 @@ const MovableItem = ({
   };
 
   return (
-    <div ref={ref} className="movable-item" style={{ opacity }}>
-      <p>{item.title}</p>
-      <button onClick={() => openModal()}>More</button>
+    <div ref={ref} style={{
+      textAlign: "left",
+      borderRadius: '5px',
+      background: '#fafdff',
+      boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.5)',
+    }}>
+      <p style={{ fontSize: "15px", marginLeft: "15px"}}>{item.title}</p>
+      <p style={{ marginLeft: "15px"}}>{item.companyName}</p>
+      <Button sx={{fontSize:'10px', }} onClick={() => openModal()}>More</Button>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
         {isEditing ? (
           <>

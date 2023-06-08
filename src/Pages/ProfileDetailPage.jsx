@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { Height } from "@mui/icons-material";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function Profile() {
   const [user, setUser] = useState("");

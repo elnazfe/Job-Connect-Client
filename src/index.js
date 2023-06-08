@@ -1,3 +1,5 @@
+//index.jsx
+
 import React, { useEffect } from "react";
 import "./index.css";
 import App from "./App";
@@ -9,6 +11,7 @@ import { createRoot } from "react-dom/client";
 
 import { createClient } from '@supabase/supabase-js';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 const supabase = createClient(
   "https://gflaoudfbggrtlzsejdw.supabase.co",
@@ -29,7 +32,9 @@ function RootComponent() {
       <Router>
         <AuthProviderWrapper>
           <SessionContextProvider supabaseClient={supabase}>
-            <App />
+            <StyledEngineProvider injectFirst>
+              <App />
+            </StyledEngineProvider>
            </SessionContextProvider>
         </AuthProviderWrapper>
       </Router>

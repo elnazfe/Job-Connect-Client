@@ -58,7 +58,7 @@
   margin-left: auto;
   margin-right: auto;
 }
-
+/* 
 .column {
   height: max-content;
   min-height: 100px;
@@ -93,12 +93,12 @@
 .done-column {
   background-color: #f5ffe5;
 }
-
+ */
 .movable-item {
   border-radius: 5px;
   background-color: #fafdff;
-  height: 100px;
-  width: 140px;
+/*   height: 100px;
+  width: 140px; */
   margin: 10px auto;
   display: block;
   justify-content: center;

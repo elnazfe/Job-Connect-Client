@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5005/api";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
   const [applicationUser, setApplicationUser] = useState();
@@ -14,7 +14,7 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/profile/${item.user}`, {
+      const response = await axios.get(`${API_URL}/api/profile/${item.user}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setApplicationUser(response.data);
@@ -27,7 +27,7 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/jobs/${item.job}`, {
+      const response = await axios.get(`${API_URL}/api/jobs/${item.job}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setApplicationJob(response.data);
@@ -108,7 +108,7 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
         const storedToken = localStorage.getItem("authToken");
 
         await axios.put(
-          `${API_URL}/application/${application._id}`,
+          `${API_URL}/api/application/${application._id}`,
           {
             ...application,
             column: name,

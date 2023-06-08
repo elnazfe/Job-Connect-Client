@@ -7,7 +7,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function UserProfilePage() {
   const [user, setUser] = useState(null);

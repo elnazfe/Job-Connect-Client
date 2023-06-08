@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5005/api";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 const AvailableJobs = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const AvailableJobs = () => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/jobs/available`, {
+      const response = await axios.get(`${API_URL}/api/jobs/available`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
 

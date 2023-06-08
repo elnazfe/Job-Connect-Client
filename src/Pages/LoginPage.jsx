@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from "../Context/auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function LoginPage() {
   const [email, setEmail] = useState("");

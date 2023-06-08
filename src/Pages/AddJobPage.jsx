@@ -1,11 +1,14 @@
-// src/components/AddJob.jsx
+// AddJobPage.jsx
 
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5005";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function AddJob(props) {
   const [title, setTitle] = useState("");
@@ -55,37 +58,55 @@ function AddJob(props) {
     <div>
       <h3>My Jobs</h3>
       <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input
+        <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <div>
+        <TextField
+        
+          label="Job Titile"
           type="text"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
-        <label>Company:</label>
-        <input
+        </div>
+        <div>
+        <TextField
+        id="outlined-error"
+          label="Company Name"
           type="text"
           name="title"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
         />
-        <label>Job URL:</label>
-        <input
+        </div>
+        <div>
+        <TextField
+        id="outlined-error"
+          label="Job URL"
           type="text"
           name="title"
           value={jobURL}
           onChange={(e) => setJobURL(e.target.value)}
         />
-
-        <label>Description:</label>
-        <textarea
+        </div>
+        <div>
+        <TextField
+        id="outlined-error"
+          label="Job Description"
           type="text"
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
+        </div>
+        </Box>
         <button type="submit">Submit</button>
       </form>
     </div>

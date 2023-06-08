@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-const API_URL = "http://localhost:5005/api";
+const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function RecruiterListPage() {
   const { user } = useContext(AuthContext);
