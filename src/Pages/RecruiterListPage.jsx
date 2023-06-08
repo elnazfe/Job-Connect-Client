@@ -43,7 +43,7 @@ function RecruiterListPage() {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/application`, {
+      const response = await axios.get(`${API_URL}/api/application`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setApplications(response.data);
@@ -57,7 +57,7 @@ function RecruiterListPage() {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/jobs`, {
+      const response = await axios.get(`${API_URL}/api/jobs`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setJobs(response.data);
@@ -71,7 +71,7 @@ function RecruiterListPage() {
       const storedToken = localStorage.getItem("authToken");
 
       await axios.put(
-        `${API_URL}/jobs/${job._id}`,
+        `${API_URL}/api/jobs/${job._id}`,
         {
           ...job,
           status: "closed",

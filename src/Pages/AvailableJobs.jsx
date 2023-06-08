@@ -46,7 +46,7 @@ const AvailableJobs = () => {
 
     // to get the jobs that are available and user applied
     axios
-      .post(`${API_URL}/application/apply`, requestBody, {
+      .post(`${API_URL}/api/application/apply`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {

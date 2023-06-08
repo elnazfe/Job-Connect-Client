@@ -87,7 +87,7 @@ function EditProfilePage() {
     try {
       const storedToken = localStorage.getItem('authToken');
 
-      await axios.delete(`${API_URL}/profile/${id}`, {
+      await axios.delete(`${API_URL}/api/profile/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
 

@@ -51,7 +51,7 @@ function JobListPage() {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/jobs`, {
+      const response = await axios.get(`${API_URL}/api/jobs`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setJobs(response.data);
@@ -64,7 +64,7 @@ function JobListPage() {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      const response = await axios.get(`${API_URL}/myapplications`, {
+      const response = await axios.get(`${API_URL}/api/myapplications`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setApplications(response.data);
