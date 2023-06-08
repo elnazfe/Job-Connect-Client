@@ -37,7 +37,7 @@ function SocialAuthPage() {
         password,
       };
       const response = await axios.post(
-        `${import.meta.env.VITE_APP_API_URL}/auth/signup`,
+        `${REACT_APP_SERVER_URL}/auth/signup`,
         body
       );
       setSuccessSignupMessage("Account created");
@@ -55,7 +55,7 @@ function SocialAuthPage() {
         password,
       };
       const response = await axios.post(
-        `${import.meta.env.VITE_APP_API_URL}/auth/login`,
+        `${REACT_APP_SERVER_URL}/auth/login`,
         body
       );
       storeToken(response.data.authToken);
@@ -87,7 +87,7 @@ function SocialAuthPage() {
       };
       //Check the BACKEND-ROUTE.js file to see the route that you need to create
       const response = await axios.post(
-        `${import.meta.env.VITE_APP_API_URL}/auth/social-auth`,
+        `${REACT_APP_SERVER_URL}/auth/social-auth`,
         body
       );
       storeToken(response.data.authToken);
