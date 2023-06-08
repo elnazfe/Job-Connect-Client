@@ -24,7 +24,7 @@ import Button from '@mui/material/Button';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
-function RecruiterListPage() {
+function JobPostPage() {
   const { user } = useContext(AuthContext);
 
   const [jobs, setJobs] = useState([]);
@@ -127,7 +127,7 @@ function RecruiterListPage() {
 
   return (
     <>
-            <div className="container">
+            {/* <div className="container">
       <DndProvider backend={HTML5Backend}>
       <Box sx={{ flexGrow: 1,  marginTop: "20px"}}>
       <Grid container spacing={2} columns={20}>
@@ -165,15 +165,15 @@ function RecruiterListPage() {
     </Grid>
       <br/>
 
-      {/* <Link to="/addnewjob">
+      <Link to="/addnewjob">
       <ColorButton variant="contained">Post a new job</ColorButton>
-      </Link> */}
+      </Link>
 
     </Box>
     </DndProvider>
-      </div>
+      </div> */}
 
-      {/* <div className="container">
+      <div className="container">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -211,9 +211,14 @@ function RecruiterListPage() {
             </TableBody>
           </Table>
         </TableContainer>
-      </div> */}
+
+        <Link to="/addnewjob">
+            <ColorButton variant="contained">Post a new job</ColorButton>
+        </Link>
+
+      </div>
     </>
   );
 }
 
-export default RecruiterListPage;
+export default JobPostPage;

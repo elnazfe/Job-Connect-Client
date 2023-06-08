@@ -133,7 +133,7 @@ function JobListPage() {
       </DndProvider>
       </div>
 
-      <div className="container">
+      {/* <div className="container">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -163,7 +163,7 @@ function JobListPage() {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
+      </div> */}
     </>
   );
 }

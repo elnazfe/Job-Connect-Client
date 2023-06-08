@@ -117,7 +117,7 @@ function UserProfilePage() {
                   />
                   <br />
                   <br />
-                  <Link to={`/comingsoon`}>CV & Resume</Link>
+                  <Link to={`/appliedjobs`}>Applied Jobs Status</Link>
                   <br />
                   <br />
                 </Item>
@@ -162,7 +162,7 @@ function UserProfilePage() {
                   />
                   <br />
                   <br />
-                  <Link to={`/comingsoon`}>Events</Link>
+                  <Link to={`/aboutus`}>About Us</Link>
                   <br />
                   <br />
                 </Item>
@@ -226,7 +226,7 @@ function UserProfilePage() {
                     style={{ width: "50%" }}
                   />
                   <br />
-                  <Link to={`/commingsoon`}>CV & Resume</Link>
+                  <Link to={`/jobpost`}>Post Job</Link>
                 </Item>
               </Grid>
               <Grid item xs={12} sm={3}>
@@ -259,7 +259,7 @@ function UserProfilePage() {
                     style={{ width: "50%" }}
                   />
                   <br />
-                  <Link to={`/comingsoon`}>Events</Link>
+                  <Link to={`/aboutus`}>About Us</Link>
                 </Item>
               </Grid>
             </Grid>

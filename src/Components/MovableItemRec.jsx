@@ -1,8 +1,17 @@
+// MovableItem page with Modal for recruiter
+
 import React, { useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Modal from "react-modal";
 import { useState } from "react";
 import axios from "axios";
+import AddToCalendar from "../Pages/AddToCalendar";
+
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Unstable_Grid2';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -146,6 +155,14 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
   drag(drop(ref));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editedJobPosition, setEditedJobPosition] = useState(item.jobPosition);
+  const [editedEmployeeName, setEditedEmployeeName] = useState(item.employeeName);
+  const [editedJobURL, setEditedJobURL] = useState(item.jobURL);
+  const [editedDescription, setEditedDescription] = useState(item.description);
+  const [editedNote, setEditedNote] = useState(item.note);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAddingToCalendar, setIsAddingToCalendar] = useState(false);
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -153,23 +170,128 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsEditing(false);
+    setIsAddingToCalendar(false);
+  };
+
+  const updateItem = async () => {
+    const storedToken = localStorage.getItem("authToken");
+
+    await axios.put(
+      `${API_URL}/api/recruiter/${item._id}`,
+      {
+        ...item,
+        jobPosition: editedJobPosition,
+        employeeName: editedEmployeeName,
+        jobURL: editedJobURL,
+        description: editedDescription,
+        note: editedNote
+      },
+      {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      }
+    );
+
+    setItems((prevItems) =>
+      prevItems.map((application) =>
+      application._id === item._id
+          ? {
+              ...application,
+              jobPosition: editedJobPosition,
+              employeeName: editedEmployeeName,
+              jobURL: editedJobURL,
+              description: editedDescription,
+              note: editedNote
+            }
+          : application
+      )
+    );
+
+    closeModal();
   };
 
   Modal.setAppElement("#root");
 
+  const addToCalendar = () => {
+    setIsAddingToCalendar(true);
+  };
+
+  // MUI
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
   return (
     applicationUser &&
     applicationJob && (
-      <div ref={ref} className="movable-item" style={{ opacity }}>
-        <p>
-          {applicationUser.email} applied to {applicationJob.title}
+      <div ref={ref} style={{
+        textAlign: "left",
+        borderRadius: '5px',
+        background: '#fafdff',
+        boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.5)',
+      }}>
+        <p style={{ fontSize: "13px", marginLeft: "15px"}}>{applicationJob.title}</p>
+        <p style={{ fontSize: "10px", marginLeft: "15px"}}>{applicationUser.firstName} {applicationUser.lastName}</p>
+        <p style={{ fontSize: "10px", marginLeft: "15px", }}>
+          <a href={`mailto:${applicationUser.email}`}>{applicationUser.email}</a>
         </p>
-        <button onClick={() => openModal()}>More</button>
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-          <p>Job position: {item.jobPosition} </p>
-          <p>Employee Name: {item.employeeName}</p>
-          <p>Description: {item.description} </p>
-          <button onClick={closeModal}>Close</button>
+        <Button sx={{fontSize:'10px', }} onClick={() => openModal()}>More</Button>
+        
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}> 
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={editedJobPosition}
+              onChange={(e) => setEditedJobPosition(e.target.value)}
+            />
+            <input
+              type="text"
+              value={editedEmployeeName}
+              onChange={(e) => setEditedEmployeeName(e.target.value)}
+            />
+            <input
+              type="text"
+              value={editedJobURL}
+              onChange={(e) => setEditedJobURL(e.target.value)}
+            />
+            <textarea
+              value={editedDescription}
+              onChange={(e) => setEditedDescription(e.target.value)}
+            ></textarea>
+            <button onClick={updateItem}>Save</button>
+          </>
+        ) : (
+          <>
+            <Box>
+  
+                <Item>
+                <p>Job Position: {applicationJob.title} </p>
+              <p>Application Name: {applicationUser.firstName} {applicationUser.lastName}</p>
+              <p>Application Email: {applicationJob.email}</p>
+              <p>Job URL: {applicationJob.jobURL}</p>
+              <p>Description: {applicationJob.description} </p>
+              <p>Note: {applicationJob.note} </p>
+                </Item>
+
+
+
+        </Box>
+
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={addToCalendar}>Add to Calendar</button>
+          </>
+        )}
+
+        {isAddingToCalendar && (
+          <AddToCalendar closeModal={closeModal} item={item} />
+        )}
+
+        <button onClick={closeModal}>Close</button>
         </Modal>
       </div>
     )

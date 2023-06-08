@@ -38,14 +38,13 @@
 }
 
 .navline {
-  /* width: 80%; */
+  border-radius: 7px;
   height: 5px;
   margin: 0 10%;
-  background-color:#8c52ff;
+  background-color: #8c52ff2c;
 }
 
 .nav-buttons {
-  display: block;
   justify-content: center;
 }
 
@@ -106,3 +105,28 @@
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
 }
 
+.add-button {
+  background-color: #8c52ff45;
+  color: #fafdff;
+}
+
+.about-us {
+  text-align: center;
+  padding-left: 10%;
+  padding-right: 10%
+}
+
+.profiles {
+  justify-content: space-around;
+  display: flex;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #8c52ff15;
+  padding: 8px;
+  text-align: center;
+}

@@ -22,6 +22,11 @@ import { useContext } from "react";
 import { AuthContext } from "./Context/auth.context";
 import AddNewJob from "./Pages/AddNewJobPage";
 import AvailableJobs from "./Pages/AvailableJobs";
+import JobPostPage from "./Pages/JobPostPage"
+
+import AppliedJobs from "./Pages/AppliedJobs"
+import Footer from "./Components/Footer";
+import AboutUsPage from "./Pages/AboutUsPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -43,13 +48,17 @@ function App() {
             <Route path="/recruiter" element={<RecruiterListPage />} />
             <Route path="/addjob" element={<AddJob />} />
             <Route path="/jobdetail" element={<JobDetailPage />} />
+            <Route path="/jobpost" element={<JobPostPage />} />
             <Route path="/addnewjob" element={<AddNewJob />} />
             <Route path="/comingsoon" element={<ComingSoon />} />
             <Route path="/addtocalendar" element={<AddToCalendar />} />
             <Route path="/availablejobs" element={<AvailableJobs />} />
+            <Route path="/appliedjobs" element={<AppliedJobs/>}/>
+            <Route path="/aboutus" element={<AboutUsPage/>} />
           </>
         )}
       </Routes>
+      <Footer/>
     </div>
   );
 }

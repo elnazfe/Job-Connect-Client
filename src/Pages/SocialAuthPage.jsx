@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../Context/auth.context";
 import axios from "axios";
 
 import github from "../assets/github.png";

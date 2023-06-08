@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import MovableItemRec from "../Components/MovableItemRec";
-import ColumnRec from "../Components/ColumnRec";
+import MovableItem from "../Components/MovableItem";
+import Column from "../Components/Column";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/auth.context";
 import { DndProvider } from "react-dnd";
@@ -20,42 +20,30 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-
+import { purple } from '@mui/material/colors';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
-function RecruiterListPage() {
+function AppliedJobPage() {
   const { user } = useContext(AuthContext);
 
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
 
   const returnItemsForColumn = (columnName) => {
-    return applications
+    return jobs
       .filter((item) => item.column === columnName)
       .map((item, index) => (
-        <MovableItemRec
+        <MovableItem
           key={item._id}
           item={item}
+          name={item.title}
           currentColumnName={item.column}
-          setItems={setApplications}
+          setItems={setJobs}
           index={index}
-          applications={applications}
+          jobs={jobs}
         />
       ));
-  };
-
-  const getAllApplications = async () => {
-    try {
-      const storedToken = localStorage.getItem("authToken");
-
-      const response = await axios.get(`${API_URL}/api/application`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-      setApplications(response.data);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   // Axios request to query the jobs that belong to the user in context
@@ -71,31 +59,15 @@ function RecruiterListPage() {
       console.log(error);
     }
   };
-
-  const CloseJob = async (job) => {
+  // Query to display applications within the platform
+  const displayApplications = async () => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
-      await axios.put(
-        `${API_URL}/api/jobs/${job._id}`,
-        {
-          ...job,
-          status: "closed",
-        },
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      );
-
-      const newState = jobs.map((obj) => {
-        if (obj._id === job._id) {
-          return { ...obj, status: "closed" };
-        }
-
-        return obj;
+      const response = await axios.get(`${API_URL}/api/myapplications`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
       });
-
-      setJobs(newState);
+      setApplications(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -104,11 +76,11 @@ function RecruiterListPage() {
   useEffect(() => {
     if (user) {
       getAllJobs();
-      getAllApplications();
+      displayApplications();
     }
   }, [user]);
 
-    // MIU
+  // MIU
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -127,53 +99,41 @@ function RecruiterListPage() {
 
   return (
     <>
-            <div className="container">
+      {/* <div className="container">
       <DndProvider backend={HTML5Backend}>
       <Box sx={{ flexGrow: 1,  marginTop: "20px"}}>
-      <Grid container spacing={2} columns={20}>
-        <Grid item xs={5}>
+      <Grid container spacing={2} columns={18}>
+        <Grid item xs={6}>
           <Item sx={{bgcolor: "#CED1F4"}}>
-          <ColumnRec title={"Received"} className="column do-it-column">
-            {applications ? returnItemsForColumn("Received") : null}
-          </ColumnRec>
+          <Column title={"Saved"} className="column do-it-column">
+          {jobs ? returnItemsForColumn("Saved") : null}
+        </Column>
           </Item>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Item sx={{bgcolor: "#CED1F4"}}> 
-          <ColumnRec title={"Approved"} className="column in-progress-column">
-            {applications ? returnItemsForColumn("Approved") : null}
-          </ColumnRec>
+          <Column title={"Applied"} className="column in-progress-column">
+          {jobs ? returnItemsForColumn("Applied") : null}
+        </Column>
           </Item>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Item sx={{bgcolor: "#CED1F4"}}>
-          <ColumnRec title={"Interview"} className="column in-progress-column ">
-            {applications ? returnItemsForColumn("Interview") : null}
-          </ColumnRec>
+          <Column title={"Pending"} className="column awaiting-review-column">
+          {jobs ? returnItemsForColumn("Pending") : null}
+        </Column>
           </Item>
         </Grid>
-        <Grid item xs={5}>
-          <Item sx={{bgcolor: "#CED1F4"}}>
-          <ColumnRec
-            title={"Rejected"}
-            className="column awaiting-review-column"
-          >
-            {applications ? returnItemsForColumn("Rejected") : null}
-          </ColumnRec>
-          </Item>
-        </Grid>
-    </Grid>
+      </Grid>
       <br/>
-
-      {/* <Link to="/addnewjob">
-      <ColorButton variant="contained">Post a new job</ColorButton>
-      </Link> */}
-
+      <Link to="/addjob">
+      <ColorButton variant="contained">Add a new job to list</ColorButton>
+      </Link>
     </Box>
-    </DndProvider>
-      </div>
-
-      {/* <div className="container">
+      </DndProvider>
+      </div> */}
+ 
+      <div className="container">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -182,38 +142,32 @@ function RecruiterListPage() {
                 <TableCell align="right">Company name</TableCell>
                 <TableCell align="right">URL</TableCell>
                 <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Notes</TableCell>
                 <TableCell align="right">Status</TableCell>
-                <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {jobs.map((row) => (
+              {applications.map((row) => (
                 <TableRow
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.title}
+                    {row.job.title}
                   </TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.jobURL}</TableCell>
-                  <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.notes}</TableCell>
-                  <TableCell align="right">{row.status}</TableCell>
-                  <TableCell align="right">
-                    {row.status === "open" && (
-                      <button onClick={() => CloseJob(row)}>Close job</button>
-                    )}
-                  </TableCell>
+                  <TableCell align="right">{row.job.companyName}</TableCell>
+                  <TableCell align="right">{row.job.jobURL}</TableCell>
+                  <TableCell align="right">{row.job.description}</TableCell>
+                  <TableCell align="right">{row.column}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </div> */}
+      </div>
     </>
   );
 }
 
-export default RecruiterListPage;
+
+
+export default AppliedJobPage;

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/auth.context';
+import { Box, Button, TextField } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL
 
@@ -101,41 +102,59 @@ function EditProfilePage() {
     <div>
       <div>
         <h3>Edit Account</h3>
-
         <div>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="firstName">First Name:</label>
-            <br />
-            <input type="text" name="firstName" value={firstName} onChange={handleFirstName} />
-            <br />
+          <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+            <div>
+        <TextField
+          label="First Name"
+          type="text"
+          name="firstName"
+          value={firstName}
+          onChange={handleFirstName}
+        />
+        </div>
 
-            <label htmlFor="lastName">Last Name:</label>
-            <br />
-            <input type="text" name="lastName" value={lastName} onChange={handleLastName} />
-            <br />
-            <label htmlFor="Address">Address:</label>
-            <br />
-            <input
-              type="text"
-              name="Street"
-              value={address}
-              onChange={handleAddress}/>
-            <br />
-            <label>Image:</label>
-            <input
-              type="file"
-              onChange={(e) => handleImageChange(e)} 
-            />
+        <div>
+        <TextField
+        
+          label="Last Name"
+          type="text"
+          name="lastName"
+          value={lastName}
+          onChange={handleLastName}
+        />
+        </div>
+        <div>
+        <TextField
+        id="outlined-error"
+          label="Address"
+          type="text"
+          name="Street"
+          value={address}
+          onChange={handleAddress}
+        />
+        </div>
+        <div>
+        <TextField
+        id="outlined-error"
+          type="file"
+          onChange={(e) => handleImageChange(e)}
+          
+        />
+        </div>
             
-            <button type="submit">
-              Save changes
-            </button>
-            
+        <Button variant="text" type="submit" className='add-button'>Save Changes</Button>
+            </Box>
           </form>
-
-          <button onClick={deleteProfile}>
-            Delete Account ⚠️
-          </button>
+          <Button variant="text" type="submit" onClick={deleteProfile} className='add-button'>Delete the Account ⚠️</Button>
         </div>
       </div>
     </div>

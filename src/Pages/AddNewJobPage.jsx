@@ -1,9 +1,12 @@
-// src/components/AddJob.jsx
+// src/components/AddNewJob.jsx [Recruiter]
 
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
 import { useNavigate } from "react-router-dom";
+
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 

@@ -42,9 +42,9 @@ function Navbar() {
             >
               Logout
             </Button>
-            <Link to={`/profile/${user._id}`}>
+            {/* <Link to={`/profile/${user._id}`}>
               <Avatar src={user.profileImg} />
-            </Link>
+            </Link> */}
           </>
         )}
       </Toolbar>

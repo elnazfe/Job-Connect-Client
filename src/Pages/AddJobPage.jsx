@@ -1,12 +1,13 @@
-// AddJobPage.jsx
+// AddJobPage.jsx [Jobseeker]
 
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Button } from "@mui/material";
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -107,7 +108,7 @@ function AddJob(props) {
         />
         </div>
         </Box>
-        <button type="submit">Submit</button>
+        <Button variant="text" type="submit" className="add-button">Add a Job</Button>
       </form>
     </div>
   );

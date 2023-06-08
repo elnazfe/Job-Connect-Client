@@ -26,7 +26,7 @@ const Column = ({ children, className, title }) => {
   const getBackgroundColor = () => {
     if (isOver) {
       if (canDrop) {
-        return "rgb(188,251,255)";
+        return "#8c52ff";
       } else if (!canDrop) {
         return "rgb(255,188,188)";
       }
