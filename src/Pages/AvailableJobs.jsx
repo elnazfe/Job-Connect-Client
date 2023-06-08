@@ -19,6 +19,8 @@ const AvailableJobs = () => {
 
   const [availableJobs, setAvailableJobs] = useState();
 
+  // using axios to get all available jobs
+
   const getAllJobs = async () => {
     try {
       const storedToken = localStorage.getItem("authToken");
@@ -33,7 +35,7 @@ const AvailableJobs = () => {
     }
   };
 
-  const FollowLink = (url) => window.open(url);
+  const FollowLink = (url) => window.open(url); //  open a new window with the specified URL and name
 
   const Apply = (job) => {
     const storedToken = localStorage.getItem("authToken");
@@ -42,6 +44,7 @@ const AvailableJobs = () => {
       jobId: job._id,
     };
 
+    // to get the jobs that are available and user applied
     axios
       .post(`${API_URL}/application/apply`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -64,6 +67,7 @@ const AvailableJobs = () => {
     if (user) getAllJobs();
   }, [user]);
 
+  //display the jobs with criterias
   return (
     <>
       {availableJobs &&

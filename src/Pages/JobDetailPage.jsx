@@ -55,6 +55,7 @@ function Dashboard() {
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, "applied")}
       >
+    {/* to display applied jobs to the user */}
         <h2>Applied Jobs</h2>
         <ul>
           {appliedJobs.map((jobId) => (
