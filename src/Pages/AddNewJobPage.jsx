@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import { Box, TextField, Button } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -54,61 +55,63 @@ function AddNewJob(props) {
   };
 
   return (
+   
 
-<div>
-  <h3>Post a new job</h3>
-  <form onSubmit={handleSubmit}>
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { marginBottom: '10px' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <TextField
-          label="Title"
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Company Name"
-          type="text"
-          name="title"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          label="URL"
-          type="text"
-          name="title"
-          value={jobURL}
-          onChange={(e) => setJobURL(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Description"
-          type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-    </Box>
-    <br />
-    <Button variant="text" type="submit" style={{ marginTop: '10px' }}>
-      Submit
-    </Button>
-  </form>
-</div>
+    <div>
+      <h3>Post a new job</h3>
+      <form onSubmit={handleSubmit}>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { marginBottom: '10px' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <div>
+            <TextField
+              label="Title"
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              label="Company Name"
+              type="text"
+              name="title"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              label="URL"
+              type="text"
+              name="title"
+              value={jobURL}
+              onChange={(e) => setJobURL(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              label="Description"
+              type="text"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+        </Box>
+        <br />
+        <Button variant="text" type="submit" style={{ marginTop: '10px' }}>
+          Submit
+        </Button>
+      </form>
+    </div>
+    
 
   );
 }
