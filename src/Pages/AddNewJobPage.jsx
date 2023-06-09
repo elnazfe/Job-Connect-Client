@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -49,59 +50,66 @@ function AddNewJob(props) {
       })
       .catch((error) => console.log(error));
 
-    navigate(`/recruiter`);
+    navigate(`/jobpost`);
   };
 
   return (
-    <div>
-      <h3>Post a new job</h3>
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input
+
+<div>
+  <h3>Post a new job</h3>
+  <form onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { marginBottom: '10px' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          label="Title"
           type="text"
-          name="Title"
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <br />
-        <label>Company Name:</label>
-        <input
+      </div>
+      <div>
+        <TextField
+          label="Company Name"
           type="text"
-          name="Company name"
+          name="title"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
         />
-
-        <br />
-        <label>URL:</label>
-        <input
+      </div>
+      <div>
+        <TextField
+          label="URL"
           type="text"
-          name="URL"
+          name="title"
           value={jobURL}
           onChange={(e) => setJobURL(e.target.value)}
         />
-
-        <br />
-        <label>Description:</label>
-        <textarea
+      </div>
+      <div>
+        <TextField
+          label="Description"
           type="text"
-          name="Description"
+          name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </div>
+    </Box>
+    <br />
+    <Button variant="text" type="submit" style={{ marginTop: '10px' }}>
+      Submit
+    </Button>
+  </form>
+</div>
 
-        <br />
-        <label>Notes:</label>
-        <textarea
-          type="text"
-          name="Notes"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
   );
 }
 

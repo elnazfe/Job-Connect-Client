@@ -211,11 +211,13 @@ function JobPostPage() {
             </TableBody>
           </Table>
         </TableContainer>
-
+<br/>
+<div>
+<br/>
         <Link to="/addnewjob">
             <ColorButton variant="contained">Post a new job</ColorButton>
         </Link>
-
+</div>
       </div>
     </>
   );
