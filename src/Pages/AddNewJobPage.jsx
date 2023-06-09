@@ -5,9 +5,6 @@ import axios from "axios";
 import { AuthContext } from "../Context/auth.context";
 import { useNavigate } from "react-router-dom";
 
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
 import { Box, TextField, Button } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
