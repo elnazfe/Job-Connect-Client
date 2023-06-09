@@ -21,7 +21,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
-
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
 function RecruiterListPage() {
@@ -130,29 +129,29 @@ function RecruiterListPage() {
             <div className="container">
       <DndProvider backend={HTML5Backend}>
       <Box sx={{ flexGrow: 1,  marginTop: "20px"}}>
-      <Grid container spacing={2} columns={20}>
-        <Grid item xs={5}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6} md={3}>
           <Item sx={{bgcolor: "#CED1F4"}}>
           <ColumnRec title={"Received"} className="column do-it-column">
             {applications ? returnItemsForColumn("Received") : null}
           </ColumnRec>
           </Item>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} sm={6} md={3}>
           <Item sx={{bgcolor: "#CED1F4"}}> 
           <ColumnRec title={"Approved"} className="column in-progress-column">
             {applications ? returnItemsForColumn("Approved") : null}
           </ColumnRec>
           </Item>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} sm={6} md={3}>
           <Item sx={{bgcolor: "#CED1F4"}}>
           <ColumnRec title={"Interview"} className="column in-progress-column ">
             {applications ? returnItemsForColumn("Interview") : null}
           </ColumnRec>
           </Item>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} sm={6} md={3}>
           <Item sx={{bgcolor: "#CED1F4"}}>
           <ColumnRec
             title={"Rejected"}
@@ -162,7 +161,7 @@ function RecruiterListPage() {
           </ColumnRec>
           </Item>
         </Grid>
-    </Grid>
+      </Grid>
       <br/>
 
       {/* <Link to="/addnewjob">

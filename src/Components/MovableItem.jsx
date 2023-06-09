@@ -7,7 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import AddToCalendar from "../Pages/AddToCalendar";
 
-import Button from '@mui/material/Button';
+import { Box, Button, Dialog, DialogContent, Paper, Typography, TextField, TextareaAutosize} from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -121,6 +121,7 @@ const MovableItem = ({
   const [editedCompany, setEditedCompany] = useState(item.companyName);
   const [editedJobURL, setEditedJobURL] = useState(item.jobURL);
   const [editedDescription, setEditedDescription] = useState(item.description);
+  const [editedNote, setEditedNote] = useState(item.note);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingToCalendar, setIsAddingToCalendar] = useState(false);
 
@@ -158,6 +159,7 @@ const MovableItem = ({
         companyName: editedCompany,
         jobURL: editedJobURL,
         description: editedDescription,
+        note: editedNote
       },
       {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -173,6 +175,7 @@ const MovableItem = ({
               companyName: editedCompany,
               jobURL: editedJobURL,
               description: editedDescription,
+              note: editedNote
             }
           : job
       )
@@ -187,7 +190,7 @@ const MovableItem = ({
     setIsAddingToCalendar(true);
   };
 
-  return (
+/*   return (
     <div ref={ref} style={{
       textAlign: "left",
       borderRadius: '5px',
@@ -241,6 +244,91 @@ const MovableItem = ({
       </Modal>
     </div>
   );
+}; */
+
+
+return (
+  <>
+    <Box ref={ref} style={{
+      textAlign: "left",
+      borderRadius: '5px',
+      background: '#fafdff',
+      boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.5)',
+    }}>
+      <p style={{ fontSize: "15px", marginLeft: "15px"}}>{item.title}</p>
+      <p style={{ marginLeft: "15px"}}>{item.companyName}</p>
+      <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={() => openModal()}>More</Button>
+      <Dialog open={isModalOpen} onClose={closeModal}>
+        <DialogContent>
+          {isEditing ? (
+            <>
+            <TextField
+              variant="outlined"
+              label="Title"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="Company"
+              value={editedCompany}
+              onChange={(e) => setEditedCompany(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="Job URL"
+              value={editedJobURL}
+              onChange={(e) => setEditedJobURL(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <TextareaAutosize
+              value={editedDescription}
+              onChange={(e) => setEditedDescription(e.target.value)}
+              placeholder="Description"
+              minRows={3}
+              style={{ width: '100%', resize: 'vertical', marginBottom: '10px' }}
+            />
+            <TextareaAutosize
+              value={editedNote}
+              onChange={(e) => setEditedNote(e.target.value)}
+              placeholder="Note"
+              minRows={3}
+              style={{ width: '100%', resize: 'vertical', marginBottom: '10px' }}
+            />
+            <Button color="primary" variant="filledTonal" onClick={updateItem} fullWidth>
+              Save
+            </Button>
+          </>
+          ) : (
+            <>
+              <Typography>Title: {item.title}</Typography>
+              <p>Company: {item.companyName}</p>
+              <p>Job URL: {item.jobURL}</p>
+              <p>Description: {item.description}</p>
+              <p>Note: {item.Note}</p>
+                
+              <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={() => setIsEditing(true)}>Edit</Button>
+              <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={addToCalendar}>Add to Calendar</Button>
+            </>
+          )}
+
+          {isAddingToCalendar && (
+            <AddToCalendar closeModal={closeModal} item={item} />
+          )}
+
+          <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={closeModal}>Close</Button>
+          <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={deleteItem}>Delete</Button>
+        </DialogContent>
+      </Dialog>
+    </Box>
+  </>
+);
 };
+
 
 export default MovableItem;

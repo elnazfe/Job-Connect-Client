@@ -1,6 +1,7 @@
 import { useSession, useSupabaseClient, useSessionContext } from '@supabase/auth-helpers-react';
 import DateTimePicker from 'react-datetime-picker';
 import { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 
 function AddToCalendar() {
   const [ start, setStart ] = useState(new Date());
@@ -67,31 +68,55 @@ function AddToCalendar() {
   console.log(eventDescription);
   return (
     <div className="App">
-      <div style={{width: "400px", margin: "30px auto"}}>
-        {session ?
-          <>
-            <h2>Hey there {session.user.email}</h2>
-            <p>Start of your event</p>
-            <DateTimePicker onChange={setStart} value={start} />
-            <p>End of your event</p>
-            <DateTimePicker onChange={setEnd} value={end} />
-            <p>Event name</p>
-            <input type="text" onChange={(e) => setEventName(e.target.value)} />
-            <p>Event description</p>
-            <input type="text" onChange={(e) => setEventDescription(e.target.value)} />
-            <hr />
-            <button onClick={() => createCalendarEvent()}>Create Calendar Event</button>
-            <p></p>
-            <button onClick={() => signOut()}>Sign Out</button>
-          </>
-          :
-          <>
-            <button onClick={() => googleSignIn()}>Sign In With Google</button>
-          </>
-        }
-      </div>
+    <div style={{ width: "400px", margin: "30px auto" }}>
+      {session ? (
+        <>
+          <h2>Hey there {session.user.email}</h2>
+          <p>Start of your event</p>
+          <DateTimePicker
+            onChange={setStart}
+            value={start}
+            renderInput={(props) => <TextField {...props} />}
+          />
+          <p>End of your event</p>
+          <DateTimePicker
+            onChange={setEnd}
+            value={end}
+            renderInput={(props) => <TextField {...props} />}
+          />
+          <p>Event name</p>
+          <TextField
+            type="text"
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <p>Event description</p>
+          <TextField
+            type="text"
+            value={eventDescription}
+            onChange={(e) => setEventDescription(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <hr />
+          <Button variant="contained" onClick={() => createCalendarEvent()} fullWidth>
+            Create Calendar Event
+          </Button>
+          <p></p>
+          <Button variant="contained" onClick={() => signOut()} fullWidth>
+            Sign Out
+          </Button>
+        </>
+      ) : (
+        <Button variant="contained" onClick={() => googleSignIn()} fullWidth>
+          Sign In With Google
+        </Button>
+      )}
     </div>
-  );
-}
+  </div>
+);
+};
 
 export default AddToCalendar;

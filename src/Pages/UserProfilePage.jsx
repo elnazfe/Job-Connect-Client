@@ -3,9 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Unstable_Grid2";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import { Grid, Box, Paper, Typography } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -47,6 +45,11 @@ function UserProfilePage() {
     color: theme.palette.text.secondary,
   }));
 
+
+  // MUI
+
+  
+
   return (
     <div>
       {jobseeker && (
@@ -56,117 +59,76 @@ function UserProfilePage() {
               width: "80%",
               display: "flex",
               justifyContent: "center",
-              margin: "5% auto",
+              margin:  "auto",
               fontFamily: "Kanit",
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={3}>
-                <h1>Hello, Jobseeker {user.firstName}</h1>
+
+            <Grid item xs={12} sm={6} md={4}>
+                <h1>Hello, Jobseeker 
+                  <br/>
+                  {user.firstName} {user.lastName}</h1>
+                <Box display="flex" alignItems="center">
+                <img
+                  src={user.profileImg}
+                  alt="Profile"
+                  style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+                />
+                <Box ml={2}>
+                  <h3 variant="body1">Logged in with: 
+                  <br/>
+                  {user.email}</h3>
+                  <h4 variant="body1">City: {user.address}</h4>
+                </Box>
+                </Box>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item sx={{ bgcolor: "#CAAACD" }}>
-                  <br />
-                  <img src="/icon.svg" alt="Image" style={{ width: "50%" }} />
-                  <br />
-                  <br />
-                  <Link to={`/jobs`}>Dashboard</Link>
-                  <br />
-                  <br />
-                </Item>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item sx={{ bgcolor: "#CB962E" }}>
-                  <br />
-                  <img
-                    src="/icon (1).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
-                  <Link to={`/profile/${user._id}/detail`}>Your Profile</Link>
-                  <br />
-                  <br />
-                </Item>
-              </Grid>
-              <Grid item xs={12} sm={3}>
+
+              <Grid item xs={12} sm={6} md={4}>
                 <Item sx={{ bgcolor: "#EF601E" }}>
-                  <br />
-                  <img
-                    src="/icon (2).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
                   <Link to={`/profile/${user._id}/edit`}>
-                    Edit Your Profile
+                  <Typography fontFamily= "Kanit" variant="h5" underline="none">Edit Your Profile</Typography>
+                    <img src="/icon (10).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
                   </Link>
-                  <br />
-                  <br />
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
+
+              <Grid item xs={12} sm={6} md={4}>
                 <Item sx={{ bgcolor: "#D6E8F7" }}>
-                  <br />
-                  <img
-                    src="/icon (3).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
-                  <Link to={`/appliedjobs`}>Applied Jobs Status</Link>
-                  <br />
-                  <br />
+                  <Link to={`/jobs`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Job Dashboard</Typography>
+                    <img src="/icon (14).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item sx={{ bgcolor: "#EF601E" }}>
-                  <br />
-                  <img
-                    src="/icon (4).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
-                  <Link to={`/comingsoon`}>Calenedar</Link>
-                  <br />
-                  <br />
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#CB962E" }}>
+                <Link to={`/appliedjobs`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Applied Jobs Status</Typography>
+                    <img src="/icon (12).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
+
+              <Grid item xs={12} sm={6} md={4}>
                 <Item sx={{ bgcolor: "#D6E8F7" }}>
-                  <br />
-                  <img
-                    src="/icon (5).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
-                  <Link to={`/availablejobs`}>Available Jobs</Link>
-                  <br />
-                  <br />
+                <Link to={`/availablejobs`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Available Jobs</Typography>
+                    <img src="/icon (11).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item sx={{ bgcolor: "#F1DFB6" }}>
-                  <br />
-                  <img
-                    src="/icon (6).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <br />
-                  <Link to={`/aboutus`}>About Us</Link>
-                  <br />
-                  <br />
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#CAAACD" }}>
+                <Link to={`/aboutus`}>
+                    <Typography fontFamily= "Kanit" variant="h5">About Us</Typography>
+                    <img src="/icon (13).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
+
             </Grid>
           </Box>
         </>
@@ -179,89 +141,76 @@ function UserProfilePage() {
               width: "80%",
               display: "flex",
               justifyContent: "center",
-              margin: "5% auto",
+              margin:  "auto",
               fontFamily: "Kanit",
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={3}>
-                <h1>Hello, Recruiter {user.firstName}</h1>
+
+            <Grid item xs={12} sm={6} md={4}>
+                <h1>Hello, Recruiter 
+                  <br/>
+                  {user.firstName} {user.lastName}</h1>
+                <Box display="flex" alignItems="center">
+                <img
+                  src={user.profileImg}
+                  alt="Profile"
+                  style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+                />
+                <Box ml={2}>
+                  <h3 variant="body1">Logged in with: 
+                  <br/>
+                  {user.email}</h3>
+                  <h4 variant="body1">City: {user.address}</h4>
+                </Box>
+                </Box>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img src="/icon.svg" alt="Image" style={{ width: "50%" }} />
-                  <br />
-                  <Link to={`/Recruiter`}>Dashboard</Link>
-                </Item>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (1).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <Link to={`/profile/${user._id}/detail`}>Your Profile</Link>
-                </Item>
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (2).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#EF601E" }}>
                   <Link to={`/profile/${user._id}/edit`}>
-                    Edit Your Profile
+                  <Typography fontFamily= "Kanit" variant="h5" underline="none">Edit Your Profile</Typography>
+                    <img src="/icon (10).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
                   </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (3).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <Link to={`/jobpost`}>Post Job</Link>
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#D6E8F7" }}>
+                  <Link to={`/Recruiter`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Job Dashboard</Typography>
+                    <img src="/icon (16).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (4).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <Link to={`/comingsoon`}>Calendar</Link>
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#CB962E" }}>
+                <Link to={`/jobpost`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Post a Job</Typography>
+                    <img src="/icon (12).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (5).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <Link to={`/comingsoon`}>Blog</Link>
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#D6E8F7" }}>
+                <Link to={`/availablejobs`}>
+                    <Typography fontFamily= "Kanit" variant="h5">Available Jobs</Typography>
+                    <img src="/icon (11).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Item>
-                  <img
-                    src="/icon (6).svg"
-                    alt="Image"
-                    style={{ width: "50%" }}
-                  />
-                  <br />
-                  <Link to={`/aboutus`}>About Us</Link>
+
+              <Grid item xs={12} sm={6} md={4}>
+                <Item sx={{ bgcolor: "#CAAACD" }}>
+                <Link to={`/aboutus`}>
+                    <Typography fontFamily= "Kanit" variant="h5">About Us</Typography>
+                    <img src="/icon (13).svg" alt="Image" style={{ width: "100%", height: "auto" }} />
+                  </Link>
                 </Item>
               </Grid>
+
             </Grid>
           </Box>
         </>

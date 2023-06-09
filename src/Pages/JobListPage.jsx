@@ -20,7 +20,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { purple } from '@mui/material/colors';
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -102,22 +101,22 @@ function JobListPage() {
       <div className="container">
       <DndProvider backend={HTML5Backend}>
       <Box sx={{ flexGrow: 1,  marginTop: "20px"}}>
-      <Grid container spacing={2} columns={18}>
-        <Grid item xs={6}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4}>
           <Item sx={{bgcolor: "#CED1F4"}}>
           <Column title={"Saved"} className="column do-it-column">
           {jobs ? returnItemsForColumn("Saved") : null}
         </Column>
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={4}>
           <Item sx={{bgcolor: "#CED1F4"}}> 
           <Column title={"Applied"} className="column in-progress-column">
           {jobs ? returnItemsForColumn("Applied") : null}
         </Column>
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={4}>
           <Item sx={{bgcolor: "#CED1F4"}}>
           <Column title={"Pending"} className="column awaiting-review-column">
           {jobs ? returnItemsForColumn("Pending") : null}
@@ -126,8 +125,10 @@ function JobListPage() {
         </Grid>
       </Grid>
       <br/>
+      <br/>
+      <br/>
       <Link to="/addjob">
-      <ColorButton variant="contained">Add a new job to list</ColorButton>
+      <ColorButton align="right" variant="text" type="submit" >Add a new job to list</ColorButton>
       </Link>
     </Box>
       </DndProvider>

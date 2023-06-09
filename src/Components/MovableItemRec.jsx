@@ -7,11 +7,13 @@ import { useState } from "react";
 import axios from "axios";
 import AddToCalendar from "../Pages/AddToCalendar";
 
+
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import { Box, Typography, TextField, Dialog, DialogContent, TextareaAutosize } from '@mui/material';
+
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -225,10 +227,11 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
     color: theme.palette.text.secondary,
   }));
 
+  
   return (
     applicationUser &&
     applicationJob && (
-      <div ref={ref} style={{
+      <Box ref={ref} style={{
         textAlign: "left",
         borderRadius: '5px',
         background: '#fafdff',
@@ -239,63 +242,71 @@ const MovableItemRec = ({ item, index, currentColumnName, setItems }) => {
         <p style={{ fontSize: "10px", marginLeft: "15px", }}>
           <a href={`mailto:${applicationUser.email}`}>{applicationUser.email}</a>
         </p>
-        <Button sx={{fontSize:'10px', }} onClick={() => openModal()}>More</Button>
-        
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal}> 
-        {isEditing ? (
-          <>
-            <input
-              type="text"
-              value={editedJobPosition}
-              onChange={(e) => setEditedJobPosition(e.target.value)}
-            />
-            <input
-              type="text"
-              value={editedEmployeeName}
-              onChange={(e) => setEditedEmployeeName(e.target.value)}
-            />
-            <input
-              type="text"
-              value={editedJobURL}
-              onChange={(e) => setEditedJobURL(e.target.value)}
-            />
-            <textarea
-              value={editedDescription}
-              onChange={(e) => setEditedDescription(e.target.value)}
-            ></textarea>
-            <button onClick={updateItem}>Save</button>
-          </>
-        ) : (
-          <>
-            <Box>
-  
-                <Item>
-                <p>Job Position: {applicationJob.title} </p>
-              <p>Application Name: {applicationUser.firstName} {applicationUser.lastName}</p>
-              <p>Application Email: {applicationJob.email}</p>
-              <p>Job URL: {applicationJob.jobURL}</p>
-              <p>Description: {applicationJob.description} </p>
-              <p>Note: {applicationJob.note} </p>
-                </Item>
+        <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={() => openModal()}>More</Button>
+        <Dialog open={isModalOpen} onClose={closeModal}>
+          <DialogContent>
+            {isEditing ? (
+              <>
+                <TextField
+                  variant="outlined"
+                  label="Job Position"
+                  value={editedJobPosition}
+                  onChange={(e) => setEditedJobPosition(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  variant="outlined"
+                  label="Employee Name"
+                  value={editedEmployeeName}
+                  onChange={(e) => setEditedEmployeeName(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  variant="outlined"
+                  label="Job URL"
+                  value={editedJobURL}
+                  onChange={(e) => setEditedJobURL(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextareaAutosize
+                  value={editedDescription}
+                  onChange={(e) => setEditedDescription(e.target.value)}
+                  placeholder="Description"
+                  minRows={3}
+                  style={{ width: '100%', resize: 'vertical', marginBottom: '10px' }}
+                />
+                <Button color="primary" variant="filledTonal" onClick={updateItem} fullWidth>
+                  Save
+                </Button>
+              </>
+            ) : (
+              <>
+                <Typography>Job Position: {applicationJob.title}</Typography>
+                <p>Application Name: {applicationUser.firstName} {applicationUser.lastName}</p>
+                <p>Application Email: {applicationUser.email}</p>
+                <p>Job URL: {applicationJob.jobURL}</p>
+                <p>Description: {applicationJob.description}</p>
+                <p>Note: {applicationJob.note}</p>
 
+                <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={() => setIsEditing(true)}>Edit</Button>
+                <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={addToCalendar}>Add to Calendar</Button>
+              </>
+            )}
 
+            {isAddingToCalendar && (
+              <AddToCalendar closeModal={closeModal} item={item} />
+            )}
 
-        </Box>
-
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button onClick={addToCalendar}>Add to Calendar</button>
-          </>
-        )}
-
-        {isAddingToCalendar && (
-          <AddToCalendar closeModal={closeModal} item={item} />
-        )}
-
-        <button onClick={closeModal}>Close</button>
-        </Modal>
-      </div>
+            <Button sx={{fontSize:'10px', color:"#8C52FF"}} onClick={closeModal}>Close</Button>
+          </DialogContent>
+        </Dialog>
+      </Box>
     )
   );
 };
+
 
 export default MovableItemRec;

@@ -108,7 +108,8 @@ function AddJob(props) {
         />
         </div>
         </Box>
-        <Button variant="text" type="submit" className="add-button">Add a Job</Button>
+        <br/>
+        <Button variant="text" type="submit" className="add-button">Add Job</Button>
       </form>
     </div>
   );

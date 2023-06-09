@@ -2,7 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/auth.context';
-import { Box, Button, TextField } from '@mui/material';
+
+import { Button, TextField, Typography, Box, IconButton } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 const API_URL = process.env.REACT_APP_SERVER_URL
 
@@ -99,65 +101,68 @@ function EditProfilePage() {
   };
 
   return (
-    <div>
-      <div>
-        <h3>Edit Account</h3>
-        <div>
-          <form onSubmit={handleSubmit}>
-          <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-            <div>
-        <TextField
-          label="First Name"
-          type="text"
-          name="firstName"
-          value={firstName}
-          onChange={handleFirstName}
-        />
-        </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+      <Box sx={{ width: '400px', p: 3, border: '1px solid #ccc', borderRadius: '4px' }}>
+        <Typography variant="h4" component="h3" sx={{ mb: 3 }}>
+          Edit Account
+        </Typography>
 
-        <div>
-        <TextField
-        
-          label="Last Name"
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={handleLastName}
-        />
-        </div>
-        <div>
-        <TextField
-        id="outlined-error"
-          label="Address"
-          type="text"
-          name="Street"
-          value={address}
-          onChange={handleAddress}
-        />
-        </div>
-        <div>
-        <TextField
-        id="outlined-error"
-          type="file"
-          onChange={(e) => handleImageChange(e)}
-          
-        />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            label="First Name"
+            name="firstName"
+            value={firstName}
+            onChange={handleFirstName}
+            sx={{ mb: 2 }}
+          />
+
+          <TextField
+            fullWidth
+            label="Last Name"
+            name="lastName"
+            value={lastName}
+            onChange={handleLastName}
+            sx={{ mb: 2 }}
+          />
+
+          <TextField
+            fullWidth
+            label="Address"
+            name="address"
+            value={address}
+            onChange={handleAddress}
+            sx={{ mb: 2 }}
+          />
+
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             
-        <Button variant="text" type="submit" className='add-button'>Save Changes</Button>
-            </Box>
-          </form>
-          <Button variant="text" type="submit" onClick={deleteProfile} className='add-button'>Delete the Account ⚠️</Button>
-        </div>
-      </div>
-    </div>
+
+            <label htmlFor="image-upload">
+              Image:
+            </label>
+            <input
+              id="image-upload"
+              type="file"
+              onChange={handleImageChange}
+              sx={{ display: 'none' }}
+            />
+            <Button type="submit" variant="contained">
+              Save changes
+            </Button>
+          </Box>
+        </form>
+
+        <Button
+          variant="outlined"
+          startIcon={<Delete />}
+          onClick={deleteProfile}
+          sx={{ color: 'red', borderColor: 'red', '&:hover': { backgroundColor: '#ffeeee' } }}
+        >
+          Delete Account <Box component="span" sx={{ ml: 1 }}>&#9888;</Box>
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
